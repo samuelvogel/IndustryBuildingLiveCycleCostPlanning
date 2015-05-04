@@ -52,9 +52,13 @@
                     <div class="form-group">
                       <label for="vat" class="col-sm-4 control-label">Mehrwertsteuer</label>
                       <div class="col-sm-8">
-                        <div class="btn-group" role="group">
-                          <button type="button" class="btn btn-primary">0 %</button>
-                          <button type="button" class="btn btn-default">19 %</button>
+                        <div class="btn-group" role="group" data-toggle="buttons">
+                          <label class="btn btn-default active">
+                            <input type="radio" name="vat" value="0" autocomplete="off" checked> 0 %
+                          </label>
+                          <label class="btn btn-default">
+                            <input type="radio" name="vat" value="19" autocomplete="off"> 19 %
+                          </label>
                         </div>
                       </div>
                     </div>
@@ -213,20 +217,32 @@
                   <div class="form-group">
                     <label for="salaray-shifts" class="col-sm-4 control-label">Schichtmodell</label>
                     <div class="col-sm-8">
-                      <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-primary">1 Schicht</button>
-                        <button type="button" class="btn btn-default">2 Schichten</button>
-                        <button type="button" class="btn btn-default">3 Schichten</button>
+                      <div class="btn-group" role="group" data-toggle="buttons">
+                        <label class="btn btn-default active">
+                          <input type="radio" name="wage-shifts" value="1" autocomplete="off" checked> 1 Schicht
+                        </label>
+                        <label class="btn btn-default">
+                          <input type="radio" name="wage-shifts" value="2" autocomplete="off"> 2 Schichten
+                        </label>
+                        <label class="btn btn-default">
+                          <input type="radio" name="wage-shifts" value="3" autocomplete="off"> 3 Schichten
+                        </label>
                       </div>
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="wage-shifts" class="col-sm-4 control-label">Schichtmodell</label>
                       <div class="col-sm-8">
-                        <div class="btn-group" role="group">
-                          <button type="button" class="btn btn-default">1 Schicht</button>
-                          <button type="button" class="btn btn-primary">2 Schichten</button>
-                          <button type="button" class="btn btn-default">3 Schichten</button>
+                        <div class="btn-group" role="group" data-toggle="buttons">
+                          <label class="btn btn-default">
+                            <input type="radio" name="wage-shifts" value="1" autocomplete="off"> 1 Schicht
+                          </label>
+                          <label class="btn btn-default active">
+                            <input type="radio" name="wage-shifts" value="2" autocomplete="off" checked> 2 Schichten
+                          </label>
+                          <label class="btn btn-default">
+                            <input type="radio" name="wage-shifts" value="3" autocomplete="off"> 3 Schichten
+                          </label>
                         </div>
                       </div>
                   </div>
