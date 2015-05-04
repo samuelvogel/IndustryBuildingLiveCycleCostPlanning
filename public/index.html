@@ -6,7 +6,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title></title>
+        <title>Flächenpanungstool</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -36,71 +36,466 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Project name</a>
+          <a class="navbar-brand" href="#">Flächenpanungstool</a>
         </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <form class="navbar-form navbar-right" role="form">
-            <div class="form-group">
-              <input type="text" placeholder="Email" class="form-control">
-            </div>
-            <div class="form-group">
-              <input type="password" placeholder="Password" class="form-control">
-            </div>
-            <button type="submit" class="btn btn-success">Sign in</button>
-          </form>
-        </div><!--/.navbar-collapse -->
       </div>
     </nav>
 
-    <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
       <div class="container">
-        <h1>Hello, world!</h1>
-        <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-        <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
+
+        <form class="form-horizontal">
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Baupreis- und Fortschreibungsprämissen</h3>
+            </div>
+            <div class="panel-body">
+
+              <div class="row">
+                <div class="col-md-6">
+
+                    <div class="form-group">
+                      <label for="vat" class="col-sm-4 control-label">Mehrwertsteuer</label>
+                      <div class="col-sm-8">
+                        <div class="btn-group" role="group" aria-label="Mehrwertsteuer">
+                          <button type="button" class="btn btn-primary">0 %</button>
+                          <button type="button" class="btn btn-default">19 %</button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="discont" class="col-sm-4 control-label">Diskontierungszinsatz</label>
+                      <div class="col-sm-8">
+                        <div class="input-group">
+                          <input id="discont" type="number" class="form-control" placeholder="0" aria-describedby="basic-addon2" min="0" max="12">
+                          <span class="input-group-addon" id="basic-addon2">%</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="location" class="col-sm-4 control-label">Standort</label>
+                      <div class="col-sm-8">
+                        <select id="location" class="form-control">
+                          <option>Deutschland</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="priceyear" class="col-sm-4 control-label">Preisstand</label>
+                      <div class="col-sm-8">
+                        <input id="priceyear" type="number" class="form-control" placeholder="2015" min="2000" max="2050">
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="startdate" class="col-sm-4 control-label">Bau-/Vergabebeginn</label>
+                      <div class="col-sm-8">
+                        <input id="startdate" type="date" class="form-control" placeholder="31.12.2016">
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="workingdays" class="col-sm-4 control-label">Arbeitstage pro Jahr</label>
+                      <div class="col-sm-8">
+                        <input id="workingdays" type="number" class="form-control" placeholder="250" min="0" max="366">
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="col-md-6">
+
+                    <div class="panel panel-default">
+                      <div class="panel-heading">
+                        <h4 class="panel-title">Pressteigerung pro Jahr</h4>
+                      </div>
+                      <div class="panel-body">
+
+                        <div class="form-group">
+                          <label for="priceincrease-general" class="col-sm-5 control-label">Algemein (z.B. Baukosten)</label>
+                          <div class="col-sm-7">
+                            <div class="input-group">
+                              <input id="priceincrease-general" type="number" class="form-control" placeholder="0" min="0" max="6">
+                              <span class="input-group-addon">%</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="priceincrease-energy" class="col-sm-5 control-label">Energie</label>
+                          <div class="col-sm-7">
+                            <div class="input-group">
+                              <input id="priceincrease-energy" type="number" class="form-control" placeholder="0" min="0" max="6">
+                              <span class="input-group-addon">%</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="priceincrease-water" class="col-sm-5 control-label">Wasser & Abwasser</label>
+                          <div class="col-sm-7">
+                            <div class="input-group">
+                              <input id="priceincrease-water" type="number" class="form-control" placeholder="0" min="0" max="4">
+                              <span class="input-group-addon">%</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="priceincrease-services" class="col-sm-5 control-label">Diensleistung (Reinigung)</label>
+                          <div class="col-sm-7">
+                            <div class="input-group">
+                              <input id="priceincrease-services" type="number" class="form-control" placeholder="0" min="0" max="4">
+                              <span class="input-group-addon">%</span>
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+
+                </div>
+              </div>
+
+            </div>
+            <div class="panel-footer text-center">
+              Bezugsgröße: m<sup>2</sup> BGFa - Umfang: KG 300 + KG 400
+            </div>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Zeiträume</h3>
+            </div>
+            <div class="panel-body">
+
+              <div class="form-group">
+                <label for="review-period" class="col-sm-2 control-label">Betrachtung</label>
+                <div class="col-sm-10">
+                  <input id="review-period" type="range" class="form-control" value="30" min="0" max="50">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="change-period" class="col-sm-2 control-label">Änderung</label>
+                <div class="col-sm-10">
+                  <input id="change-period" type="range" class="form-control" value="20" min="0" max="50">
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Nutzungsart</h3>
+            </div>
+            <div class="panel-body">
+
+              <div class="row">
+                <div class="col-md-3">
+
+                  <div class="form-group">
+                    <label for="salaray-receivers" class="col-sm-6 control-label">Gehaltsempfänger</label>
+                    <div class="col-sm-6">
+                      <input id="salaray-receivers" type="number" class="form-control" placeholder="100" min="0">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="wage-receivers" class="col-sm-6 control-label">Lohnempfänger</label>
+                    <div class="col-sm-6 ">
+                      <input id="salaray-receivers" type="number" class="form-control" placeholder="1000" min="0">
+                    </div>
+                  </div>
+
+                </div>
+                <div class="col-md-6">
+
+                  <div class="form-group">
+                    <label for="salaray-shifts" class="col-sm-4 control-label">Schichtmodell</label>
+                    <div class="col-sm-8">
+                      <div class="btn-group" role="group" aria-label="Mehrwertsteuer">
+                        <button type="button" class="btn btn-primary">1 Schicht</button>
+                        <button type="button" class="btn btn-default">2 Schichten</button>
+                        <button type="button" class="btn btn-default">3 Schichten</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="wage-shifts" class="col-sm-4 control-label">Schichtmodell</label>
+                      <div class="col-sm-8">
+                        <div class="btn-group" role="group" aria-label="Mehrwertsteuer">
+                          <button type="button" class="btn btn-default">1 Schicht</button>
+                          <button type="button" class="btn btn-primary">2 Schichten</button>
+                          <button type="button" class="btn btn-default">3 Schichten</button>
+                        </div>
+                      </div>
+                  </div>
+
+                </div>
+                <div class="col-md-3">
+
+                  <div class="form-group">
+                    <label for="salaray-women" class="col-sm-6 control-label">Gehaltsempfänger</label>
+                    <div class="col-sm-6">
+                      <div class="input-group">
+                        <input id="salaray-women" type="number" class="form-control" placeholder="30" min="0" max="100">
+                        <span class="input-group-addon">%</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="wage-women" class="col-sm-6 control-label">Lohnempfänger</label>
+                    <div class="col-sm-6 ">
+                      <div class="input-group">
+                        <input id="wage-women" type="number" class="form-control" placeholder="30" min="0" max="100">
+                        <span class="input-group-addon">%</span>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Qualitätsbewertung</h3>
+            </div>
+            <div class="panel-body">
+
+              <div class="row">
+                <div class="col-md-6">
+
+                    <div class="panel panel-default">
+                      <div class="panel-heading">
+                        <h4 class="panel-title">Flächenqualität</h4>
+                      </div>
+                      <div class="panel-body">
+
+                        <div class="form-group">
+                          <label for="component" class="col-sm-4 control-label">Komponenten</label>
+                          <div class="col-sm-8">
+                            <input id="component" type="range" class="form-control" value="5" min="1" max="9">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="execution" class="col-sm-4 control-label">Ausführung</label>
+                          <div class="col-sm-8">
+                            <input id="execution" type="range" class="form-control" value="5" min="1" max="9">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="construction" class="col-sm-4 control-label">Konstruktion</label>
+                          <div class="col-sm-8">
+                            <input id="construction" type="range" class="form-control" value="5" min="1" max="9">
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="col-md-6">
+
+                    <div class="panel panel-default">
+                      <div class="panel-heading">
+                        <h4 class="panel-title">Änderungsqualität</h4>
+                      </div>
+                      <div class="panel-body">
+
+                        <div class="form-group">
+                          <label for="generality" class="col-sm-4 control-label">Universalität</label>
+                          <div class="col-sm-8">
+                            <input id="generality" type="range" class="form-control" value="5" min="1" max="9">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="modularity" class="col-sm-4 control-label">Modularität</label>
+                          <div class="col-sm-8">
+                            <input id="modularity" type="range" class="form-control" value="5" min="1" max="9">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="separability" class="col-sm-4 control-label">Trennbarkeit</label>
+                          <div class="col-sm-8">
+                            <input id="separability" type="range" class="form-control" value="5" min="1" max="9">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="scalability" class="col-sm-4 control-label">Skalierbarkeit</label>
+                          <div class="col-sm-8">
+                            <input id="scalability" type="range" class="form-control" value="5" min="1" max="9">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="adaptability" class="col-sm-4 control-label">Revisionierbarkeit</label>
+                          <div class="col-sm-8">
+                            <input id="adaptability" type="range" class="form-control" value="5" min="1" max="9">
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Kostenarten</h3>
+            </div>
+
+            <!-- Table -->
+            <table class="table table-striped table-hover">
+              <thead>
+                <tr>
+                  <th class="col-md-1">#</th>
+                  <th class="col-md-6">Kostenart</th>
+                  <th class="col-md-4">Herstellungskosten</th>
+                  <th class="col-md-1"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>
+                    <select class="form-control">
+                      <option>NF 1.3 Pausenräume</option>
+                    </select>
+                  </td>
+                  <td>
+                    <div class="input-group">
+                      <input type="text" class="form-control" placeholder="100">
+                      <span class="input-group-addon">€</span>
+                    </div>
+                  </td>
+                  <td>
+                    <button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>
+                    <select class="form-control">
+                      <option>NF 2.1 Büroräume & NF 2.2 Großraumbüros</option>
+                    </select>
+                  </td>
+                  <td>
+                    <div class="input-group">
+                      <input type="text" class="form-control" placeholder="100">
+                      <span class="input-group-addon">€</span>
+                    </div>
+                  </td>
+                  <td>
+                    <button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>
+                    <select class="form-control">
+                      <option>&nbsp;- Weitere Fläche -</option>
+                    </select>
+                  </td>
+                  <td>
+                    <div class="input-group">
+                      <input type="text" class="form-control" placeholder="100">
+                      <span class="input-group-addon">€</span>
+                    </div>
+                  </td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Energiearten</h3>
+            </div>
+            <div class="panel-body">
+
+              <div class="row">
+                <div class="col-md-4">
+
+                  <div class="form-group">
+                    <label for="electricity" class="col-sm-4 control-label">Strom</label>
+                    <div class="col-sm-8">
+                      <div class="input-group">
+                        <input id="electricity" type="text" class="form-control" placeholder="100">
+                        <span class="input-group-addon">€</span>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="col-md-4">
+
+                  <div class="form-group">
+                    <label for="water" class="col-sm-4 control-label">Wasser</label>
+                    <div class="col-sm-8">
+                      <div class="input-group">
+                        <input id="water" type="text" class="form-control" placeholder="100">
+                        <span class="input-group-addon">€</span>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="col-md-4">
+
+                  <div class="form-group">
+                    <label for="heating" class="col-sm-4 control-label">Wärme</label>
+                    <div class="col-sm-8">
+                      <div class="input-group">
+                        <input id="heating" type="text" class="form-control" placeholder="100">
+                        <span class="input-group-addon">€</span>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="pull-right">
+            <button type="button" class="btn btn-primary btn-lg">Berechnen</button>
+          </div>
+
+        </form>
+
       </div>
     </div>
 
     <div class="container">
-      <!-- Example row of columns -->
       <div class="row">
-        <div class="col-md-4">
-          <h2>Heading</h2>
+        <div class="col-md-12">
+          <h2>Hilfe</h2>
           <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-        </div>
-        <div class="col-md-4">
-          <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-       </div>
-        <div class="col-md-4">
-          <h2>Heading</h2>
-          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+          <p><a class="btn btn-default" href="#" role="button">Weitere Informationen &raquo;</a></p>
         </div>
       </div>
 
       <hr>
 
       <footer>
-        <p>&copy; Company 2015</p>
+        <p>&copy; Samuel Vogel 2015</p>
       </footer>
-    </div> <!-- /container -->        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
+    </div>
 
-        <script src="js/vendor/bootstrap.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 
-        <script src="js/main.js"></script>
+    <script src="js/vendor/bootstrap.min.js"></script>
 
-        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-        <script>
-            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-            e.src='//www.google-analytics.com/analytics.js';
-            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-            ga('create','UA-XXXXX-X','auto');ga('send','pageview');
-        </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/xlsx.min.js"></script>
+
+    <script src="js/main.js"></script>
     </body>
 </html>
