@@ -8,6 +8,11 @@ app.get('/', function(request, response) {
   response.send('Hello World!');
 });
 
+// Error 404
+app.use(function(req, res, next) {
+  res.status(404).sendFile(__dirname + '/public/404.html');
+});
+
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
