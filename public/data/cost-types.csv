@@ -1,0 +1,61 @@
+identifier;structuralBuildingArea;productionCosts;productionCosts2;operatingCosts;alterationCosts;operatingLife
+NF 1.1 Wohnräume;0,15;1500;1125;1,000;1,000;1,000
+NF 1.2 Gemeinschaftsräume;0,1;800;600;1,000;1,000;1,000
+NF 1.3 Pausenräume;0,1;653;489,75;1,000;1,000;1,000
+NF 1.5 Speiseräume / Versammlungsräume;0,1;1300;975;1,000;1,000;1,000
+NF 2.1 Einzelbüros / Besprechungsräume;0,1;1415;1415;1,000;1,000;1,000
+NF 2.3 Großraumbüros;0,1;1057;1057;1,000;1,000;1,000
+NF 2.8 Meisterbüros;0,1;590;590;0,700;1,000;1,300
+NF 2.9 Sonstige Büroflächen / Bürotechnikräume;0,1;1200;1200;1,000;1,000;1,000
+NF 3.1 Werkhallen;;606;454,5;1,000;1,000;1,000
+NF 3.1.1 Logistikhalle;0,03;394;405;0,916;1,000;1,084
+NF 3.1.2 Produktionshalle;0,03;605;630;1,180;1,000;0,820
+NF 3.1.3 Montagehalle;0,03;480;555;1,111;1,000;0,889
+NF 3.1.4 Lackierhalle;0,03;723;881;1,329;1,000;0,671
+NF 3.1.5 Presswerkshalle;0,03;826;881;0,848;1,000;1,152
+NF 3.1.9 Vertriebsniederlassungen Stadtrand;0,1;1000;750;1,000;1,000;1,000
+NF 3.1.9 Vertriebsniederlassungen Innenstand;0,1;1000;750;1,000;1,000;1,000
+NF 3.1.10 Vertriebsniederlassung City Sales Outlet;0,1;760;570;0,916;1,000;1,084
+NF 3.1.10 Vertriebsniederlassung Service Only;0,1;760;570;0,916;1,000;1,084
+NF 3.1.10 Zentral und Regionallager;0,03;760;570;0,916;1,000;1,084
+NF 3.2 Werkstätten;0,07;1250;937,5;1,222;1,000;0,778
+NF 3.3 Technologische Labore;0,1;1512;1134;1,300;1,000;0,700
+NF 3.4 Physikalisch-technische, elektrotechnische Labore;0,1;1600;1200;1,400;1,000;0,600
+NF 3.5 Chemische, bakteriologische morphologische Labore;0,1;1900;1425;1,400;1,000;0,600
+NF 3.8 Küchen;0,1;1200;900;1,200;1,000;0,800
+NF 3.9 Sonderarbeitsräume;0,1;2000;1500;1,400;1,000;0,600
+NF 4.1 Lagerräume;0,07;835;626,25;1,000;1,000;1,000
+NF 4.2 Archive, Sammlungsräume;0,1;500;375;1,000;1,000;1,000
+NF 4.4 Annahme- und Ausgaberäume;0,1;800;600;1,000;1,000;1,000
+NF 4.4.1 Vordach;0,03;450;337,5;1,100;1,000;0,900
+NF 4.4.2 Kalthallenanlieferung;0,03;416;312;1,100;1,000;0,900
+NF 4.4.3 Trailerschleuse;0,03;600;450;1,100;1,000;0,900
+NF 4.6 Ausstellungsräume;0,07;600;450;1,000;1,000;1,000
+NF 4.9 Sonstige Lagerräume;0,07;400;300;1,000;1,000;1,000
+NF 5.1 Unterrichtsräume mit festem Gestühl;0,1;1200;900;1,000;1,000;1,000
+NF 5.2 Unterrichts- und Übungsräume ohne festes Gestühl;0,1;1300;975;1,000;1,000;1,000
+NF 5.4 Bibliotheksräume;0,1;1500;1125;1,000;1,000;1,000
+NF 5.6 Versammlungsräume;0,1;1000;750;1,000;1,000;1,000
+NF 6.1 Räume mit allgemeiner medizinischer Ausstattung;0,1;1200;900;1,000;1,000;1,000
+NF 6.9 Sonstige Pflegeräume;0,1;1400;1050;1,000;1,000;1,000
+NF 7.1 Sanitärräume;0,15;1123;842,25;1,200;1,000;0,800
+NF 7.2 Wasch und Umkleideräume;0,15;860;645;1,200;1,000;0,800
+NF 7.4 Fahrzeugabstellflächen;0;500;375;1,000;1,000;1,000
+NF 7.4.1 Parkplätze befestigt;0;500;375;1,000;1,000;1,000
+NF 7.4.2 Parkbauten;0,03;500;375;0,900;1,000;1,100
+NF 7.9 Sonstige Räume;0,1;900;675;1,000;1,000;1,000
+NF 7.9.1 Putzräume;0,1;1010;757,5;0,800;1,000;1,200
+TF 8.1 Abwasseraufbereitung und Beseitigung - Gase;0,1;500;375;1,000;1,000;1,000
+TF 8.2 Heizung und Brauchwassererwärmnung;0,1;500;375;1,000;1,000;1,000
+TF 8.3 Raumlufttechnische Anlagen;0,1;250;187,5;1,000;1,000;1,000
+TF 8.4 Elektrische Stromversorgung;0,1;213;159,75;1,000;1,000;1,000
+TF 8.5 Fernmeldetechnik;0,1;500;375;1,000;1,000;1,000
+TF 8.6 Aufzugs- und Förderanlagen;0,1;150;112,5;1,000;1,000;1,000
+TF 8.9 Sonstige betriebstechnische Anlagen;0,1;200;150;1,000;1,000;1,000
+TF 8.9.1 Schaltschrankbühnen;0,1;430;322,5;1,000;1,000;1,000
+VF 9.1 Flure, Hallen;0,25;250;187,5;1,000;1,000;1,000
+VF 9.2 Treppen;0,25;2000;1500;1,000;1,000;1,000
+VF 9.3 Schächte für Förderanlagen;0,25;800;600;1,000;1,000;1,000
+VF 9.3.1 Schrottkanal;0,25;820;615;1,000;1,000;1,000
+VF 9.4 Fahrzeugverkehrsflächen;0,1;500;375;1,000;1,000;1,000
+VF 9.9 Sonstige Verkehrsflächen;0,1;500;375;1,000;1,000;1,000
