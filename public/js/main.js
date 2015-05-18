@@ -7,4 +7,19 @@ $(function ($) {
 	// Initialize all indicators
 	$('input[type=range]').trigger('input');
 
+	// Parse and render cost types
+	Papa.parse('data/cost-types.csv', {
+		download: true,
+		header: true,
+		complete: function (results) {
+			var options = '';
+
+			results.data.forEach(function(costType) {
+				options += '<option>' + costType.identifier + '</option>';
+			});
+
+			$('#cost-types select').append(options);
+		}
+	});
+
 })
