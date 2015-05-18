@@ -14,12 +14,36 @@ $(function ($) {
 		complete: function (results) {
 			var options = '';
 
-			results.data.forEach(function(costType) {
-				options += '<option>' + costType.identifier + '</option>';
+			results.data.forEach(function(costType, i) {
+				options += '<option value="' + i + '">' + costType.identifier + '</option>';
 			});
 
 			$('#cost-types select').append(options);
 		}
+	});
+
+	$('#cost-types select').change(function (element) {
+		var row = $(element.target).closest('tr'),
+			numberColumn = row.children('td:first');
+
+		if (!numberColumn.text()) {
+			// Add new template row at the end
+			$('#cost-types tbody').append(row.clone(true));
+
+			// Activate current row
+			numberColumn.text($('#cost-types tbody tr').length - 1);
+			row.find('input').focus();
+			row.find('button').show();
+		}
+	});
+
+	$('#cost-types button').click(function (element) {
+		$(element.target).closest('tr').remove();
+
+		// Recalculate row numbers
+		$('#cost-types tbody tr:not(:last-child)').each(function (i, element) {
+			$(element).children('td:first').text(i + 1);
+		});
 	});
 
 })
