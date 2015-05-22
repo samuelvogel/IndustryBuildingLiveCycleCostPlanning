@@ -14,8 +14,8 @@ $(function ($) {
 		complete: function (results) {
 			var options = '';
 
-			results.data.forEach(function(costType, i) {
-				options += '<option value="' + i + '">' + costType.identifier + '</option>';
+			results.data.forEach(function(costType) {
+				options += '<option value="' + costType.id + '">' + costType.title + '</option>';
 			});
 
 			$('#cost-types select').append(options);
