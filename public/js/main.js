@@ -22,6 +22,7 @@ $(function ($) {
 		}
 	});
 
+	// Add cost type
 	$('#cost-types select').change(function (element) {
 		var row = $(element.target).closest('tr'),
 			numberColumn = row.children('td:first');
@@ -37,6 +38,7 @@ $(function ($) {
 		}
 	});
 
+	// Remove cost type
 	$('#cost-types button').click(function (element) {
 		$(element.target).closest('tr').remove();
 
