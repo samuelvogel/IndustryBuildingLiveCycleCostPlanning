@@ -9,6 +9,8 @@ $(function ($) {
 	// Initialize all indicators
 	$('input[type=range]').trigger('input');
 
+	var data = []; // Used for calculation later
+
 	// Parse and render cost types
 	Papa.parse('data/cost-types.csv', {
 		download: true,
@@ -18,6 +20,8 @@ $(function ($) {
 
 			results.data.forEach(function(costType) {
 				options += '<option value="' + costType.id + '">' + costType.title + '</option>';
+
+				data[costType.id] = costType;
 			});
 
 			$('#cost-types select').append(options);
@@ -47,6 +51,54 @@ $(function ($) {
 		// Recalculate row numbers
 		$('#cost-types tbody tr:not(:last-child)').each(function (i, element) {
 			$(element).children('td:first').text(i + 1);
+		});
+	});
+
+	// Calculate lifetime table
+	$('#calculate').click(function () {
+		var years = $('#review-period').val(),
+			header = $('#calculation thead tr'),
+			t0 = header.find('th:eq(1)'),
+			sumColumn = header.find('th:last');
+
+		// Reset table
+		$('#calculation thead tr th:gt(1):not(:last)').remove();
+		$('#calculation tbody').empty();
+
+		// Initialize header
+		for (var year = 1; year <= years; year++) {
+			var newColumn = t0.clone();
+
+			newColumn.find('sub').text(year);
+
+			sumColumn.before(newColumn);
+		}
+
+		$('#cost-types tbody tr:not(:last-child)').each(function (i, element) {
+			var id = $(element).find('select').val(),
+				manufacturingCosts = parseInt($(element).find('input').val()),
+				costType = data[id],
+				row = $('<tr>'),
+				sum = 0;
+
+			$('#calculation tbody').append(row);
+			row.append('<td>' + costType['title'] + '</td>');
+
+			for (var year = 0; year <= years; year++) {
+				// Operating costs
+				var cost = manufacturingCosts * costType['operation'];
+
+				// Reconstruction
+				if (year == 0 || year == costType['lifetime']) {
+					cost = manufacturingCosts;
+				}
+
+				row.append('<td>' + numeral(cost).format('0,0.000') + '&nbsp;€</td>');
+
+				sum += cost;
+			}
+
+			row.append('<td>' + numeral(sum).format('0,0.000') + '&nbsp;€</td>');
 		});
 	});
 
