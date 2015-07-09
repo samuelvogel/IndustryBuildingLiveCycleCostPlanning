@@ -59,7 +59,8 @@ $(function ($) {
 		var years = $('#review-period').val(),
 			header = $('#calculation thead tr'),
 			t0 = header.find('th:eq(1)'),
-			sumColumn = header.find('th:last');
+			sumColumn = header.find('th:last'),
+			discounting = $('#discounting').val() / 100;
 
 		// Reset table
 		$('#calculation thead tr th:gt(1):not(:last)').remove();
@@ -92,6 +93,9 @@ $(function ($) {
 				if (year == 0 || year == costType['lifetime']) {
 					cost = manufacturingCosts;
 				}
+
+				// Discounting
+				cost = cost / Math.pow(1 + discounting, year);
 
 				row.append('<td>' + numeral(cost).format('0,0.000') + '&nbsp;€</td>');
 
