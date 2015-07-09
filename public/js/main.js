@@ -60,7 +60,8 @@ $(function ($) {
 			header = $('#calculation thead tr'),
 			t0 = header.find('th:eq(1)'),
 			sumColumn = header.find('th:last'),
-			discounting = $('#discounting').val() / 100;
+			discounting = $('#discounting').val() / 100,
+			inflation = $('#priceincrease-general').val() / 100;
 
 		// Reset table
 		$('#calculation thead tr th:gt(1):not(:last)').remove();
@@ -96,6 +97,9 @@ $(function ($) {
 
 				// Discounting
 				cost = cost / Math.pow(1 + discounting, year);
+
+				// Inflation
+				cost = cost * Math.pow(1 + inflation, year);
 
 				row.append('<td>' + numeral(cost).format('0,0.000') + '&nbsp;€</td>');
 
