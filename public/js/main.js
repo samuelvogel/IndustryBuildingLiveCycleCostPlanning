@@ -143,6 +143,7 @@ $(function ($) {
 		});
 
 		// Add sum row
+		var values = [];
 		for (var year = 0; year <= years; year++) {
 			var sum = 0;
 
@@ -151,9 +152,22 @@ $(function ($) {
 			});
 
 			sumRow.append('<td>' + numeral(sum).format('0,0.000') + '&nbsp;€</td>');
+			values.push(sum);
 		}
 
 		sumRow.append('<td>' + numeral(overall).format('0,0.000') + '&nbsp;€</td>');
+
+		var color = getRandomColor();
+		datasets.push({
+			label: sumRow.children('td:first').text(),
+			data: values,
+			fillColor: 'rgba(' + color + ',0.2)',
+			strokeColor: 'rgb(' + color + ')',
+			pointColor: 'rgb(' + color + ')',
+			pointStrokeColor: "#fff",
+			pointHighlightFill: "#fff",
+			pointHighlightStroke: 'rgb(' + color + ')',
+		});
 
 		// Chart
 		var ctx = $("#chart")[0].getContext("2d");
