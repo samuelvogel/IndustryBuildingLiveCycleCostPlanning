@@ -1,5 +1,13 @@
 $(function ($) {
 
+	/*
+	 * General functions
+	 */
+	// Return RGB values of random color
+	var getRandomColor = function () {
+		return (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256));
+	};
+
 	numeral.language('de');
 
 	// Show input range value in corresponding output tag
@@ -121,9 +129,7 @@ $(function ($) {
 			row.append('<td>' + numeral(sum).format('0,0.000') + '&nbsp;€</td>');
 			overall += sum;
 
-			// Choose random color
-			var color = (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256));
-
+			var color = getRandomColor();
 			datasets.push({
 				label: costType['title'],
 				data: values,
