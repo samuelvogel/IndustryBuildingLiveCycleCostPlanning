@@ -63,6 +63,8 @@ $(function ($) {
 			discounting = $('#discounting').val() / 100,
 			inflation = $('#priceincrease-general').val() / 100;
 
+		$('#calculation').show();
+
 		// Reset table
 		$('#calculation thead tr th:gt(1):not(:last)').remove();
 		$('#calculation tbody').empty();
