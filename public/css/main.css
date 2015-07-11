@@ -14,3 +14,7 @@ output {
 #calculation {
 	display: none;
 }
+
+#results {
+	overflow-x: scroll;
+}
