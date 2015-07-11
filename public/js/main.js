@@ -124,7 +124,7 @@ $(function ($) {
 			// Choose random color
 			var color = (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256));
 
-			datasets[i] = {
+			datasets.push({
 				label: costType['title'],
 				data: values,
 				fillColor: 'rgba(' + color + ',0.2)',
@@ -133,7 +133,7 @@ $(function ($) {
 				pointStrokeColor: "#fff",
 				pointHighlightFill: "#fff",
 				pointHighlightStroke: 'rgb(' + color + ')',
-			};
+			});
 		});
 
 		// Add sum row
