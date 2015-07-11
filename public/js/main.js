@@ -49,7 +49,7 @@ $(function ($) {
 		$(element.target).closest('tr').remove();
 
 		// Recalculate row numbers
-		$('#cost-types tbody tr:not(:last-child)').each(function (i, element) {
+		$('#cost-types tbody tr:not(:last)').each(function (i, element) {
 			$(element).children('td:first').text(i + 1);
 		});
 	});
@@ -83,7 +83,7 @@ $(function ($) {
 		}
 
 		// Calculate cost types
-		$('#cost-types tbody tr:not(:last-child)').each(function (i, element) {
+		$('#cost-types tbody tr:not(:last)').each(function (i, element) {
 			var id = $(element).find('select').val(),
 				manufacturingCosts = parseInt($(element).find('input').val()),
 				costType = data[id],
