@@ -22,6 +22,9 @@ output {
 #results table tr td:last-child {
 	font-weight: bold;
 }
+#results table tr:last-child td {
+	font-weight: bold;
+}
 
 #results td {
 	text-align: right;

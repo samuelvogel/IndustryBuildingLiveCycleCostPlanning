@@ -63,13 +63,16 @@ $(function ($) {
 			discounting = $('#discounting').val() / 100,
 			inflation = $('#priceincrease-general').val() / 100,
 			labels = [0],
-			datasets = [];
+			datasets = [],
+			overall = 0,
+			sumRow = $('#calculation tbody tr:last');
 
 		$('#calculation').show();
 
 		// Reset table
 		$('#calculation thead tr th:gt(1):not(:last)').remove();
-		$('#calculation tbody').empty();
+		$('#calculation tbody tr:not(:last)').remove();
+		sumRow.children('td:not(:first)').remove();
 
 		// Initialize header
 		for (var year = 1; year <= years; year++) {
@@ -91,7 +94,7 @@ $(function ($) {
 				sum = 0,
 				values = [];
 
-			$('#calculation tbody').append(row);
+			sumRow.before(row);
 			row.append('<td>' + costType['title'] + '</td>');
 
 			for (var year = 0; year <= years; year++) {
@@ -116,6 +119,7 @@ $(function ($) {
 			}
 
 			row.append('<td>' + numeral(sum).format('0,0.000') + '&nbsp;€</td>');
+			overall += sum;
 
 			// Choose random color
 			var color = (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256));
@@ -131,6 +135,19 @@ $(function ($) {
 				pointHighlightStroke: 'rgb(' + color + ')',
 			};
 		});
+
+		// Add sum row
+		for (var year = 0; year <= years; year++) {
+			var sum = 0;
+
+			datasets.forEach(function(dataset) {
+				sum += dataset.data[year];
+			});
+
+			sumRow.append('<td>' + numeral(sum).format('0,0.000') + '&nbsp;€</td>');
+		}
+
+		sumRow.append('<td>' + numeral(overall).format('0,0.000') + '&nbsp;€</td>');
 
 		// Chart
 		var ctx = $("#chart")[0].getContext("2d");
