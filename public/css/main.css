@@ -18,3 +18,7 @@ output {
 #results {
 	overflow-x: scroll;
 }
+
+#results table tr td:last-child {
+	font-weight: bold;
+}
