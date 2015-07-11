@@ -78,6 +78,7 @@ $(function ($) {
 			sumColumn.before(newColumn);
 		}
 
+		// Calculate cost types
 		$('#cost-types tbody tr:not(:last-child)').each(function (i, element) {
 			var id = $(element).find('select').val(),
 				manufacturingCosts = parseInt($(element).find('input').val()),
