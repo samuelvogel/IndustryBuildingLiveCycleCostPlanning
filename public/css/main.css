@@ -23,6 +23,10 @@ output {
 	font-weight: bold;
 }
 
+#results td {
+	text-align: right;
+}
+
 #chart {
 	width: 100%;
 	height: 400px;
