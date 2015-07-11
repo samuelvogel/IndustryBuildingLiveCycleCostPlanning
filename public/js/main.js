@@ -61,7 +61,9 @@ $(function ($) {
 			t0 = header.find('th:eq(1)'),
 			sumColumn = header.find('th:last'),
 			discounting = $('#discounting').val() / 100,
-			inflation = $('#priceincrease-general').val() / 100;
+			inflation = $('#priceincrease-general').val() / 100,
+			labels = [0],
+			datasets = [];
 
 		$('#calculation').show();
 
@@ -76,6 +78,8 @@ $(function ($) {
 			newColumn.find('sub').text(year);
 
 			sumColumn.before(newColumn);
+
+			labels.push(year);
 		}
 
 		// Calculate cost types
@@ -84,7 +88,8 @@ $(function ($) {
 				manufacturingCosts = parseInt($(element).find('input').val()),
 				costType = data[id],
 				row = $('<tr>'),
-				sum = 0;
+				sum = 0,
+				values = [];
 
 			$('#calculation tbody').append(row);
 			row.append('<td>' + costType['title'] + '</td>');
@@ -106,10 +111,32 @@ $(function ($) {
 
 				row.append('<td>' + numeral(cost).format('0,0.000') + '&nbsp;€</td>');
 
+				values.push(Math.round(cost * 1000) / 1000);
 				sum += cost;
 			}
 
 			row.append('<td>' + numeral(sum).format('0,0.000') + '&nbsp;€</td>');
+
+			// Choose random color
+			var color = (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256));
+
+			datasets[i] = {
+				label: costType['title'],
+				data: values,
+				fillColor: 'rgba(' + color + ',0.2)',
+				strokeColor: 'rgb(' + color + ')',
+				pointColor: 'rgb(' + color + ')',
+				pointStrokeColor: "#fff",
+				pointHighlightFill: "#fff",
+				pointHighlightStroke: 'rgb(' + color + ')',
+			};
+		});
+
+		// Chart
+		var ctx = $("#chart")[0].getContext("2d");
+		var chart = new Chart(ctx).Line({
+			labels: labels,
+			datasets: datasets
 		});
 	});
 
