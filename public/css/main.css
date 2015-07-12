@@ -29,6 +29,9 @@ output {
 #results td {
 	text-align: right;
 }
+#results td:first-child {
+	text-align: left;
+}
 
 #chart {
 	width: 100%;
