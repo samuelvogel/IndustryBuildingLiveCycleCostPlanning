@@ -38,3 +38,18 @@ output {
 	height: 400px;
 	padding: 10px;
 }
+
+#legend ul {
+	text-align: center;
+}
+#legend ul li {
+	display: inline;
+	list-style-type: none;
+	padding-right: 20px;
+}
+#legend li span {
+	display: inline-block;
+	width: 12px;
+	height: 12px;
+	margin-right: 5px;
+}

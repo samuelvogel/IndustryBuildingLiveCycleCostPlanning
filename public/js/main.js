@@ -175,6 +175,7 @@ $(function ($) {
 			labels: labels,
 			datasets: datasets
 		});
+		$('#legend').html(chart.generateLegend());
 	});
 
 })
