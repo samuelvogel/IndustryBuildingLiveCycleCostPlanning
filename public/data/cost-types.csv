@@ -38,7 +38,7 @@ id,title,maintenance,service,operation,lifetime
 444,Niederspannungsinstallationsanlagen,0.007,0.013,0.02,25
 445,Beleuchtungsanlage,0.007,0.013,0.02,25
 446,Blitz- und erdungsanlagen,0.007,0.013,0.02,25
-449,Sonstiges ,0.007,0.013,0.02,25
+449,Sonstiges,0.007,0.013,0.02,25
 451,TK-Netze,0.003,0.007,0.01,25
 452,Such- und Signalanlagen,0.003,0.007,0.01,25
 455,Antennenanlagen,0.003,0.007,0.01,25
