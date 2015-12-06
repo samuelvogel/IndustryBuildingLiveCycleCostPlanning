@@ -9,6 +9,32 @@ $(function ($) {
 		round3Places = function (value) {
 			return Math.round(value * 1000) / 1000;
 		},
+		// Add one more cost type
+		addCostType = function (element) {
+			var row = $(element.target).closest('tr'),
+				numberColumn = row.children('td:first');
+
+			if (!numberColumn.text()) {
+				// Add new template row at the end
+				var newRow = row.clone(true);
+				newRow.find('input').val(''); // Clear input of new row
+				$('#cost-types tbody').append(newRow);
+
+				// Activate current row
+				numberColumn.text($('#cost-types tbody tr').length - 1);
+				row.find('input').focus();
+				row.find('button').show();
+			}
+		},
+		// Remove selected cost type
+		removeCostType = function (element) {
+			$(element.target).closest('tr').remove();
+
+			// Recalculate row numbers
+			$('#cost-types tbody tr:not(:last)').each(function (i, element) {
+				$(element).children('td:first').text(i + 1);
+			});
+		},
 		// Calculate and show result
 		calculate = function () {
 			var years = $('#review-period').val(),
@@ -209,32 +235,10 @@ $(function ($) {
 	});
 
 	// Add cost type
-	$('#cost-types select').change(function (element) {
-		var row = $(element.target).closest('tr'),
-			numberColumn = row.children('td:first');
-
-		if (!numberColumn.text()) {
-			// Add new template row at the end
-			var newRow = row.clone(true);
-			newRow.find('input').val(''); // Clear input of new row
-			$('#cost-types tbody').append(newRow);
-
-			// Activate current row
-			numberColumn.text($('#cost-types tbody tr').length - 1);
-			row.find('input').focus();
-			row.find('button').show();
-		}
-	});
+	$('#cost-types select').change(addCostType);
 
 	// Remove cost type
-	$('#cost-types button').click(function (element) {
-		$(element.target).closest('tr').remove();
-
-		// Recalculate row numbers
-		$('#cost-types tbody tr:not(:last)').each(function (i, element) {
-			$(element).children('td:first').text(i + 1);
-		});
-	});
+	$('#cost-types button').click(removeCostType);
 
 	// Calculate results
 	$('#calculate').click(calculate);
