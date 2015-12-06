@@ -87,8 +87,8 @@ $(function ($) {
 			sumColumn = header.find('th:last'),
 			discounting = $('#discounting').val() / 100,
 			inflation = $('#priceincrease-general').val() / 100,
-			vat = $('input[name=vat]:checked').val(),
-			locationFactor = $('#location').val(),
+			vat = $('input[name=vat]:checked').val() / 100,
+			locationFactor = $('#location').val() / 100,
 			labels = [0],
 			datasets = [],
 			overall = 0,
@@ -140,10 +140,10 @@ $(function ($) {
 				cost = cost * Math.pow(1 + inflation, year);
 
 				// VAT
-				cost = cost * (1 + vat / 100);
+				cost = cost * (1 + vat);
 
 				// Location
-				cost = cost * (1 + locationFactor / 100);
+				cost = cost * (1 + locationFactor);
 
 				row.append('<td>' + numeral(cost).format('0,0.000') + '&nbsp;€</td>');
 
