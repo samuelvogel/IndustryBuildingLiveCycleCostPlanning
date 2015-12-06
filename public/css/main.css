@@ -53,3 +53,10 @@ output {
 	height: 12px;
 	margin-right: 5px;
 }
+
+#pie-chart {
+	display: block;
+	margin: auto;
+	padding: 20px;
+	width: 50%;
+}

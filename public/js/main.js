@@ -18,6 +18,10 @@ $(function ($) {
 				labels = [0],
 				datasets = [],
 				overall = 0,
+				costGroups = {
+					'300': 0,
+					'400': 0
+				},
 				sumRow = $('#calculation tbody tr:last');
 
 			$('#calculation').show();
@@ -80,6 +84,9 @@ $(function ($) {
 				row.append('<td>' + numeral(sum).format('0,0.000') + '&nbsp;€</td>');
 				overall += sum;
 
+				// Group 300 and 400 cost types
+				costGroups[Math.round(id / 100) * 100] += sum;
+
 				var color = getRandomColor();
 				datasets.push({
 					label: costType['title'],
@@ -131,6 +138,24 @@ $(function ($) {
 				datasets: datasets
 			});
 			$('#line-chart .legend').html(lineChart.generateLegend());
+
+			// pie chart 300 vs. 400 cost types
+			var pieChartData = [
+			    {
+			        value: costGroups['300'],
+			        color:"#F7464A",
+			        highlight: "#FF5A5E",
+			        label: "300er Kosten"
+			    },
+			    {
+			        value: costGroups['400'],
+			        color: "#46BFBD",
+			        highlight: "#5AD3D1",
+			        label: "400er Kosten"
+			    }
+			];
+			var pieChartCtx = $("#pie-chart")[0].getContext("2d");
+			var pieChart = new Chart(pieChartCtx).Doughnut(pieChartData);
 		};
 
 	numeral.language('de');
