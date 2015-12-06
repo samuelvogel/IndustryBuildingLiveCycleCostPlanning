@@ -243,4 +243,4 @@ $(function ($) {
 	// Calculate results
 	$('#calculate').click(calculate);
 
-})
+});
