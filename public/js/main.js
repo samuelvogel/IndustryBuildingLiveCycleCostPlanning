@@ -241,6 +241,10 @@ $(function ($) {
 	$('#cost-types button').click(removeCostType);
 
 	// Calculate results
-	$('#calculate').click(calculate);
+	$('button[type=submit]').click(function (event) {
+		event.preventDefault();
+
+		calculate();
+	});
 
 });
