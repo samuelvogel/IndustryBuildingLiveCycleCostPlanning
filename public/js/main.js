@@ -19,6 +19,21 @@ $(function ($) {
 
 	var data = []; // Used for calculation later
 
+	// Parse and render locations
+	Papa.parse('data/locations.csv', {
+		download: true,
+		header: true,
+		complete: function (results) {
+			var options = '';
+
+			results.data.forEach(function(location) {
+				options += '<option value="' + location.factor + '">' + location.name + '</option>';
+			});
+
+			$('#location').append(options);
+		}
+	});
+
 	// Parse and render cost types
 	Papa.parse('data/cost-types.csv', {
 		download: true,
@@ -71,6 +86,7 @@ $(function ($) {
 			discounting = $('#discounting').val() / 100,
 			inflation = $('#priceincrease-general').val() / 100,
 			vat = $('input[name=vat]:checked').val(),
+			locationFactor = $('#location').val(),
 			labels = [0],
 			datasets = [],
 			overall = 0,
@@ -123,6 +139,9 @@ $(function ($) {
 
 				// VAT
 				cost = cost * (1 + vat / 100);
+
+				// Location
+				cost = cost * (1 + locationFactor / 100);
 
 				row.append('<td>' + numeral(cost).format('0,0.000') + '&nbsp;€</td>');
 
