@@ -5,6 +5,10 @@ $(function ($) {
 		getRandomColor = function () {
 			return (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256));
 		},
+		// Round to 3 decimal places
+		round3Places = function (value) {
+			return Math.round(value * 1000) / 1000;
+		},
 		// Calculate and show result
 		calculate = function () {
 			var years = $('#review-period').val(),
@@ -77,7 +81,7 @@ $(function ($) {
 
 					row.append('<td>' + numeral(cost).format('0,0.000') + '&nbsp;€</td>');
 
-					values.push(Math.round(cost * 1000) / 1000);
+					values.push(round3Places(cost));
 					sum += cost;
 				}
 
