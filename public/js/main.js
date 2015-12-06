@@ -236,7 +236,7 @@ $(function ($) {
 		});
 	});
 
-	// Calculate lifetime table
+	// Calculate results
 	$('#calculate').click(calculate);
 
 })
