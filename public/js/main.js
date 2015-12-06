@@ -1,6 +1,6 @@
 $(function ($) {
 
-	var
+	var lineChart,
 		// Return RGB values of random color
 		getRandomColor = function () {
 			return (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256));
@@ -120,9 +120,13 @@ $(function ($) {
 				pointHighlightStroke: 'rgb(' + color + ')',
 			});
 
+			// Clean up old line chart to prevent jumping
+			if (lineChart)
+				lineChart.destroy();
+
 			// Line chart cost per year
 			var lineChartCtx = $("#line-chart canvas")[0].getContext("2d");
-			var lineChart = new Chart(lineChartCtx).Line({
+			lineChart = new Chart(lineChartCtx).Line({
 				labels: labels,
 				datasets: datasets
 			});
