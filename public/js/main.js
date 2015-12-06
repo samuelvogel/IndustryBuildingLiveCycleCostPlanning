@@ -165,7 +165,7 @@ $(function ($) {
 			var options = '';
 
 			results.data.forEach(function(costType) {
-				options += '<option value="' + costType.id + '">' + costType.title + '</option>';
+				options += '<option value="' + costType.id + '">' + costType.id + ': ' + costType.title + '</option>';
 
 				data[costType.id] = costType;
 			});
