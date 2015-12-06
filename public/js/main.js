@@ -96,14 +96,14 @@ $(function ($) {
 			// Add sum row
 			var values = [];
 			for (var year = 0; year <= years; year++) {
-				var sum = 0;
+				var yearSum = 0;
 
 				datasets.forEach(function(dataset) {
-					sum += dataset.data[year];
+					yearSum += dataset.data[year];
 				});
 
-				sumRow.append('<td>' + numeral(sum).format('0,0.000') + '&nbsp;€</td>');
-				values.push(sum);
+				sumRow.append('<td>' + numeral(yearSum).format('0,0.000') + '&nbsp;€</td>');
+				values.push(yearSum);
 			}
 
 			sumRow.append('<td>' + numeral(overall).format('0,0.000') + '&nbsp;€</td>');
