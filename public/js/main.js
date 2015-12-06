@@ -146,13 +146,13 @@ $(function ($) {
 			// pie chart 300 vs. 400 cost types
 			var pieChartData = [
 			    {
-			        value: costGroups['300'],
+			        value: round3Places(costGroups['300']),
 			        color:"#F7464A",
 			        highlight: "#FF5A5E",
 			        label: "300er Kosten"
 			    },
 			    {
-			        value: costGroups['400'],
+			        value: round3Places(costGroups['400']),
 			        color: "#46BFBD",
 			        highlight: "#5AD3D1",
 			        label: "400er Kosten"
