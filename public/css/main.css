@@ -33,21 +33,21 @@ output {
 	text-align: left;
 }
 
-#chart {
+#line-chart canvas {
 	width: 100%;
 	height: 400px;
 	padding: 10px;
 }
 
-#legend ul {
+#line-chart .legend ul {
 	text-align: center;
 }
-#legend ul li {
+#line-chart .legend ul li {
 	display: inline;
 	list-style-type: none;
 	padding-right: 20px;
 }
-#legend li span {
+#line-chart .legend ul li span {
 	display: inline-block;
 	width: 12px;
 	height: 12px;

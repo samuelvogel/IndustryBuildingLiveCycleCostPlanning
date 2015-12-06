@@ -120,13 +120,13 @@ $(function ($) {
 				pointHighlightStroke: 'rgb(' + color + ')',
 			});
 
-			// Chart
-			var ctx = $("#chart")[0].getContext("2d");
-			var chart = new Chart(ctx).Line({
+			// Line chart cost per year
+			var lineChartCtx = $("#line-chart canvas")[0].getContext("2d");
+			var lineChart = new Chart(lineChartCtx).Line({
 				labels: labels,
 				datasets: datasets
 			});
-			$('#legend').html(chart.generateLegend());
+			$('#line-chart .legend').html(lineChart.generateLegend());
 		};
 
 	numeral.language('de');
