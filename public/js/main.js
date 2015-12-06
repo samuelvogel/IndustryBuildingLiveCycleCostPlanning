@@ -89,7 +89,7 @@ $(function ($) {
 				overall += sum;
 
 				// Group 300 and 400 cost types
-				costGroups[Math.round(id / 100) * 100] += sum;
+				costGroups[id.charAt(0) + '00'] += sum;
 
 				var color = getRandomColor();
 				datasets.push({
