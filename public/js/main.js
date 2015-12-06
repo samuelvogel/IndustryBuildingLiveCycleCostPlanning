@@ -23,6 +23,7 @@ $(function ($) {
 	Papa.parse('data/locations.csv', {
 		download: true,
 		header: true,
+		skipEmptyLines: true,
 		complete: function (results) {
 			var options = '';
 
@@ -38,6 +39,7 @@ $(function ($) {
 	Papa.parse('data/cost-types.csv', {
 		download: true,
 		header: true,
+		skipEmptyLines: true,
 		complete: function (results) {
 			var options = '';
 
