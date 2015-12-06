@@ -214,7 +214,9 @@ $(function ($) {
 
 		if (!numberColumn.text()) {
 			// Add new template row at the end
-			$('#cost-types tbody').append(row.clone(true));
+			var newRow = row.clone(true);
+			newRow.find('input').val(''); // Clear input of new row
+			$('#cost-types tbody').append(newRow);
 
 			// Activate current row
 			numberColumn.text($('#cost-types tbody tr').length - 1);
