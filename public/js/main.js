@@ -24,6 +24,7 @@ $(function ($) {
 				numberColumn.text($('#cost-types tbody tr').length - 1);
 				row.find('input').focus();
 				row.find('button').show();
+				row.find('input').attr('required', ''); // Activate validation
 			}
 		},
 		// Remove selected cost type

@@ -10,6 +10,9 @@ output {
 	vertical-align: middle;
 	padding-right: 20px;
 }
+#cost-types table tr td .form-group {
+	margin: 0; /* The Bootstrap margins destroy the table design, but the class is needed for validation */
+}
 
 #calculation {
 	display: none;
