@@ -158,8 +158,9 @@ $(function ($) {
 			        label: "400er Kosten"
 			    }
 			];
-			var pieChartCtx = $("#pie-chart")[0].getContext("2d");
+			var pieChartCtx = $("#pie-chart canvas")[0].getContext("2d");
 			var pieChart = new Chart(pieChartCtx).Doughnut(pieChartData);
+			$('#pie-chart .legend').html(pieChart.generateLegend());
 		};
 
 	numeral.language('de');

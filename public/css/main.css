@@ -39,24 +39,24 @@ output {
 	padding: 10px;
 }
 
-#line-chart .legend ul {
-	text-align: center;
-}
-#line-chart .legend ul li {
-	display: inline;
-	list-style-type: none;
-	padding-right: 20px;
-}
-#line-chart .legend ul li span {
-	display: inline-block;
-	width: 12px;
-	height: 12px;
-	margin-right: 5px;
-}
-
-#pie-chart {
+#pie-chart canvas {
 	display: block;
 	margin: auto;
 	padding: 20px;
 	width: 50%;
+}
+
+#line-chart .legend ul, #pie-chart .legend ul {
+	text-align: center;
+}
+#line-chart .legend ul li, #pie-chart .legend ul li {
+	display: inline;
+	list-style-type: none;
+	padding-right: 20px;
+}
+#line-chart .legend ul li span, #pie-chart .legend ul li span {
+	display: inline-block;
+	width: 12px;
+	height: 12px;
+	margin-right: 5px;
 }
