@@ -3,10 +3,11 @@ $(function ($) {
 	/*
 	 * General functions
 	 */
-	// Return RGB values of random color
-	var getRandomColor = function () {
-		return (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256));
-	};
+	var
+		// Return RGB values of random color
+		getRandomColor = function () {
+			return (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256));
+		};
 
 	numeral.language('de');
 
