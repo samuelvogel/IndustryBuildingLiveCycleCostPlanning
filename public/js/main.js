@@ -104,7 +104,7 @@ $(function ($) {
 					cost = cost * (1 + vat);
 
 					// Location
-					cost = cost * (1 + locationFactor);
+					cost = cost * locationFactor;
 
 					row.append('<td>' + numeral(cost).format('0,0.000') + '&nbsp;€</td>');
 
