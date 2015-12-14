@@ -78,6 +78,7 @@ $(function ($) {
 				var id = $(element).find('select').val(),
 					manufacturingCosts = parseInt($(element).find('input').val()),
 					costType = data[id],
+					cost,
 					row = $('<tr>'),
 					sum = 0,
 					values = [];
@@ -86,12 +87,12 @@ $(function ($) {
 				row.append('<td>' + costType['title'] + '</td>');
 
 				for (var year = 0; year <= years; year++) {
-					// Operating costs
-					var cost = manufacturingCosts * costType['operation'];
-
-					// Reconstruction
 					if (year == 0 || year == costType['lifetime']) {
+						// (Re)construction
 						cost = manufacturingCosts;
+					} else {
+						// Operating costs
+						cost = manufacturingCosts * costType['operation'];
 					}
 
 					// Discounting
