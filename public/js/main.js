@@ -46,6 +46,8 @@ $(function ($) {
 				inflation = $('#priceincrease-general').val() / 100,
 				vat = $('input[name=vat]:checked').val() / 100,
 				locationFactor = $('#location').val() / 100,
+				priceYear = parseInt($('#priceyear').val(), 10),
+				startYear = parseInt($('#startyear').val(), 10),
 				labels = [0],
 				datasets = [],
 				overall = 0,
@@ -85,6 +87,12 @@ $(function ($) {
 
 				sumRow.before(row);
 				row.append('<td>' + costType['title'] + '</td>');
+
+				if (startYear && priceYear) {
+					// Discount for years before start year
+					var yearsBetween = startYear - priceYear;
+					manufacturingCosts = manufacturingCosts / Math.pow(1 + discounting, yearsBetween);
+				}
 
 				for (var year = 0; year <= years; year++) {
 					if (year == 0 || year == costType['lifetime']) {
