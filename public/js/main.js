@@ -69,6 +69,10 @@ $(function ($) {
 				var newColumn = t0.clone();
 
 				newColumn.find('sub').text(year);
+				if (startYear) {
+					// Tooltip
+					newColumn.find('sub').parent('th').attr('title', startYear + year);
+				}
 
 				sumColumn.before(newColumn);
 
