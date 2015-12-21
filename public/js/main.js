@@ -36,8 +36,58 @@ $(function ($) {
 				$(element).children('td:first').text(i + 1);
 			});
 		},
-		// Calculate and show result
+		// Calculate result
 		calculate = function (costTypes, config) {
+			var result = [];
+
+			// Calculate cost types
+			costTypes.forEach(function (costType) {
+				var manufacturingCosts = costType.manufacturingCost,
+					cost,
+					years = [];
+
+				if (config.startYear && config.priceYear) {
+					// Discount for years before start year
+					var yearsBetween = config.startYear - config.priceYear;
+					manufacturingCosts = manufacturingCosts / Math.pow(1 + config.discounting, yearsBetween);
+				}
+
+				// Calculate years
+				for (var year = 0; year <= config.years; year++) {
+					if (year == 0 || year == costType.data['lifetime']) {
+						// (Re)construction
+						cost = manufacturingCosts;
+					} else {
+						// Operating costs
+						cost = manufacturingCosts * costType.data['operation'];
+					}
+
+					// Discounting
+					cost = cost / Math.pow(1 + config.discounting, year);
+
+					// Inflation
+					cost = cost * Math.pow(1 + config.inflation, year);
+
+					// VAT
+					cost = cost * (1 + config.vat);
+
+					// Location
+					cost = cost * config.locationFactor;
+
+					years.push(cost);
+				}
+
+				result.push({
+					title: costType.data['title'],
+					id: costType.data['id'],
+					years: years
+				});
+			});
+
+			return result;
+		},
+		// Draw result
+		draw = function (data, config) {
 			var header = $('#calculation thead tr'),
 				t0 = header.find('th:eq(1)'),
 				sumColumn = header.find('th:last'),
@@ -72,61 +122,33 @@ $(function ($) {
 				labels.push(year);
 			}
 
-			// Calculate cost types
-			costTypes.forEach(function (costTypeInput) {
-				var manufacturingCosts = costTypeInput.manufacturingCost,
-					costType = data[costTypeInput.id],
-					cost,
-					row = $('<tr>'),
-					sum = 0,
-					values = [];
+			data.forEach(function (costType){
+				var row = $('<tr>')
+					sum = 0;
 
+				// Insert new row
 				sumRow.before(row);
-				row.append('<td>' + costType['title'] + '</td>');
 
-				if (config.startYear && config.priceYear) {
-					// Discount for years before start year
-					var yearsBetween = config.startYear - config.priceYear;
-					manufacturingCosts = manufacturingCosts / Math.pow(1 + config.discounting, yearsBetween);
-				}
+				// Start with title
+				row.append('<td>' + costType.title + '</td>');
 
-				for (var year = 0; year <= config.years; year++) {
-					if (year == 0 || year == costType['lifetime']) {
-						// (Re)construction
-						cost = manufacturingCosts;
-					} else {
-						// Operating costs
-						cost = manufacturingCosts * costType['operation'];
-					}
+				// Yearly costs
+				costType.years.forEach(function (year) {
+					row.append('<td>' + numeral(year).format('0,0.000') + '&nbsp;€</td>');
+					sum += year;
+				});
 
-					// Discounting
-					cost = cost / Math.pow(1 + config.discounting, year);
-
-					// Inflation
-					cost = cost * Math.pow(1 + config.inflation, year);
-
-					// VAT
-					cost = cost * (1 + config.vat);
-
-					// Location
-					cost = cost * config.locationFactor;
-
-					row.append('<td>' + numeral(cost).format('0,0.000') + '&nbsp;€</td>');
-
-					values.push(round3Places(cost));
-					sum += cost;
-				}
-
+				// End with sum
 				row.append('<td>' + numeral(sum).format('0,0.000') + '&nbsp;€</td>');
 				overall += sum;
 
 				// Group 300 and 400 cost types
-				costGroups[costTypeInput.id.charAt(0) + '00'] += sum;
+				costGroups[costType.id.charAt(0) + '00'] += sum;
 
 				var color = getRandomColor();
 				datasets.push({
 					label: costType['title'],
-					data: values,
+					data: costType.years.map(round3Places),
 					fillColor: 'rgba(' + color + ',0.2)',
 					strokeColor: 'rgb(' + color + ')',
 					pointColor: 'rgb(' + color + ')',
@@ -204,7 +226,7 @@ $(function ($) {
 	// Initialize all indicators
 	$('input[type=range]').trigger('input');
 
-	var data = []; // Used for calculation later
+	var costTypeData = []; // Used for calculation later
 
 	// Parse and render locations
 	Papa.parse('data/locations.csv', {
@@ -233,7 +255,7 @@ $(function ($) {
 			results.data.forEach(function(costType) {
 				options += '<option value="' + costType.id + '">' + costType.id + ': ' + costType.title + '</option>';
 
-				data[costType.id] = costType;
+				costTypeData[costType.id] = costType;
 			});
 
 			$('#cost-types select').append(options);
@@ -248,27 +270,31 @@ $(function ($) {
 
 	// Calculate results
 	$('button[type=submit]').click(function (event) {
-		var costTypes = [];
+		var costTypes = [],
+			config = {
+				years: $('#review-period').val(),
+				discounting: $('#discounting').val() / 100,
+				inflation: $('#priceincrease-general').val() / 100,
+				vat: $('input[name=vat]:checked').val() / 100,
+				locationFactor: $('#location').val() / 100,
+				priceYear: parseInt($('#priceyear').val(), 10),
+				startYear: parseInt($('#startyear').val(), 10)
+			},
+			result;
 
 		event.preventDefault();
 
 		// Get cost type input
 		$('#cost-types tbody tr:not(:last)').each(function (i, element) {
 			costTypes.push({
-				id: $(element).find('select').val(),
+				data: costTypeData[$(element).find('select').val()],
 				manufacturingCost: parseInt($(element).find('input').val())
 			});
 		});
 
-		calculate(costTypes, {
-			years: $('#review-period').val(),
-			discounting: $('#discounting').val() / 100,
-			inflation: $('#priceincrease-general').val() / 100,
-			vat: $('input[name=vat]:checked').val() / 100,
-			locationFactor: $('#location').val() / 100,
-			priceYear: parseInt($('#priceyear').val(), 10),
-			startYear: parseInt($('#startyear').val(), 10)
-		});
+		result = calculate(costTypes, config);
+
+		draw(result, config);
 	});
 
 });
