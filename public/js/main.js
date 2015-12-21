@@ -176,7 +176,7 @@ $(function ($) {
 			var color = getRandomColor();
 			datasets.push({
 				label: sumRow.children('td:first').text(),
-				data: values,
+				data: values.map(round3Places),
 				fillColor: 'rgba(' + color + ',0.2)',
 				strokeColor: 'rgb(' + color + ')',
 				pointColor: 'rgb(' + color + ')',
