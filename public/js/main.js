@@ -37,7 +37,7 @@ $(function ($) {
 			});
 		},
 		// Calculate and show result
-		calculate = function () {
+		calculate = function (costTypes) {
 			var years = $('#review-period').val(),
 				header = $('#calculation thead tr'),
 				t0 = header.find('th:eq(1)'),
@@ -80,10 +80,9 @@ $(function ($) {
 			}
 
 			// Calculate cost types
-			$('#cost-types tbody tr:not(:last)').each(function (i, element) {
-				var id = $(element).find('select').val(),
-					manufacturingCosts = parseInt($(element).find('input').val()),
-					costType = data[id],
+			costTypes.forEach(function (costTypeInput) {
+				var manufacturingCosts = costTypeInput.manufacturingCost,
+					costType = data[costTypeInput.id],
 					cost,
 					row = $('<tr>'),
 					sum = 0,
@@ -129,7 +128,7 @@ $(function ($) {
 				overall += sum;
 
 				// Group 300 and 400 cost types
-				costGroups[id.charAt(0) + '00'] += sum;
+				costGroups[costTypeInput.id.charAt(0) + '00'] += sum;
 
 				var color = getRandomColor();
 				datasets.push({
@@ -256,9 +255,19 @@ $(function ($) {
 
 	// Calculate results
 	$('button[type=submit]').click(function (event) {
+		var costTypes = [];
+
 		event.preventDefault();
 
-		calculate();
+		// Get cost type input
+		$('#cost-types tbody tr:not(:last)').each(function (i, element) {
+			costTypes.push({
+				id: $(element).find('select').val(),
+				manufacturingCost: parseInt($(element).find('input').val())
+			});
+		});
+
+		calculate(costTypes);
 	});
 
 });
