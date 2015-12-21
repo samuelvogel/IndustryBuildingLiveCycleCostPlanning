@@ -1,3 +1,11 @@
+// Source: https://github.com/SheetJS/js-xlsx/blob/v0.8.0/README.md#writing-workbooks
+function s2ab(s) {
+	var buf = new ArrayBuffer(s.length);
+	var view = new Uint8Array(buf);
+	for (var i=0; i!=s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
+	return buf;
+}
+
 $(function ($) {
 
 	var lineChart,
@@ -215,6 +223,35 @@ $(function ($) {
 			var pieChartCtx = $("#pie-chart canvas")[0].getContext("2d");
 			var pieChart = new Chart(pieChartCtx).Doughnut(pieChartData);
 			$('#pie-chart .legend').html(pieChart.generateLegend());
+		},
+		// Export data as XLSX
+		download = function (data) {
+			var sheetName = "Kostenarten",
+				sheet = {},
+				workbook = {
+					SheetNames: [sheetName], // Initialize worksheet
+					Sheets: {}
+				};
+
+			data.forEach(function (costType, r) {
+				// Add title as string
+				sheet[XLSX.utils.encode_cell({c: 0, r: r})] = {t: 's', v: costType.title};
+
+				costType.years.forEach(function (year, c) {
+					// Add value as number
+					sheet[XLSX.utils.encode_cell({c: c+1, r: r})] = {t: 'n', v: year};
+				});
+			});
+
+			// Set range (area/size of worksheet)
+			sheet['!ref'] = XLSX.utils.encode_range({s: {c: 0, r: 0}, e: {c: data[0].years.length, r: data.length}});
+
+			// Add worksheet to workbook
+			workbook.Sheets[sheetName] = sheet;
+
+			// Write output and offer as download
+			var output = XLSX.write(workbook, {type: 'binary'});
+			saveAs(new Blob([s2ab(output)], {type: 'application/octet-stream'}), sheetName + '.xlsx');
 		};
 
 	numeral.language('de');
@@ -226,7 +263,9 @@ $(function ($) {
 	// Initialize all indicators
 	$('input[type=range]').trigger('input');
 
-	var costTypeData = []; // Used for calculation later
+	// Used for calculation later
+	var costTypeData = [],
+		result;
 
 	// Parse and render locations
 	Papa.parse('data/locations.csv', {
@@ -279,8 +318,7 @@ $(function ($) {
 				locationFactor: $('#location').val() / 100,
 				priceYear: parseInt($('#priceyear').val(), 10),
 				startYear: parseInt($('#startyear').val(), 10)
-			},
-			result;
+			};
 
 		event.preventDefault();
 
@@ -295,6 +333,11 @@ $(function ($) {
 		result = calculate(costTypes, config);
 
 		draw(result, config);
+	});
+
+	// Export data
+	$('button[name=export]').click(function (event) {
+		download(result);
 	});
 
 });

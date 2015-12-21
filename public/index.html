@@ -486,9 +486,14 @@
             <div class="legend"></div>
           </div>
 
-          <div id="pie-chart">
-            <canvas></canvas>
-            <div class="legend"></div>
+          <div class="col-md-9">
+              <div id="pie-chart">
+                <canvas></canvas>
+                <div class="legend"></div>
+              </div>
+          </div>
+          <div class="col-md-3">
+            <button class="btn btn-primary btn-lg pull-right" name="export">Exportieren (.xlsx) &rarr;</button>
           </div>
         </div>
 
@@ -519,7 +524,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/1.5.3/numeral.min.js"></script>
     <script src="https://cdn.rawgit.com/adamwdraper/Numeral-js/7487acb3b9b9d3be80d504b151681d1ff75224ce/languages/de.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/xlsx.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/xlsx.core.min.js"></script>
+    <script src="https://cdn.rawgit.com/eligrey/FileSaver.js/230de7d1426d0d04abe782e0aed5800838892dd7/FileSaver.min.js"></script>
+    <script src="https://cdn.rawgit.com/eligrey/Blob.js/0cef2746414269b16834878a8abc52eb9d53e6bd/Blob.js"></script>
     <script src="https://cdn.rawgit.com/1000hz/bootstrap-validator/v0.9.0/dist/validator.min.js"></script>
 
     <script src="js/main.js"></script>

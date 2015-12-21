@@ -18,6 +18,10 @@ output {
 	display: none;
 }
 
+#calculation button {
+	margin: 15px;
+}
+
 #results {
 	overflow-x: scroll;
 }
@@ -46,7 +50,7 @@ output {
 	display: block;
 	margin: auto;
 	padding: 20px;
-	width: 50%;
+	width: 100%;
 }
 
 #line-chart .legend ul, #pie-chart .legend ul {
