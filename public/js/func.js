@@ -4,8 +4,8 @@ function getRandomColor() {
 }
 
 // Round to 3 decimal places
-function round3Places(value) {
-    return Math.round(value * 1000) / 1000;
+function round2Places(value) {
+    return Math.round(value * 100) / 100;
 }
 
 // Add one more cost type
@@ -136,12 +136,12 @@ function draw(data, config) {
 
         // Yearly costs
         costType.years.forEach(function (year) {
-            row.append('<td>' + numeral(year).format('0,0.000') + '&nbsp;€</td>');
+            row.append('<td>' + numeral(year).format('0,0.00') + '&nbsp;€</td>');
             sum += year;
         });
 
         // End with sum
-        row.append('<td>' + numeral(sum).format('0,0.000') + '&nbsp;€</td>');
+        row.append('<td>' + numeral(sum).format('0,0.00') + '&nbsp;€</td>');
         overall += sum;
 
         // Group 300 and 400 cost types
@@ -150,7 +150,7 @@ function draw(data, config) {
         var color = getRandomColor();
         datasets.push({
             label: costType['title'],
-            data: costType.years.map(round3Places),
+            data: costType.years.map(round2Places),
             fillColor: 'rgba(' + color + ',0.2)',
             strokeColor: 'rgb(' + color + ')',
             pointColor: 'rgb(' + color + ')',
@@ -169,16 +169,16 @@ function draw(data, config) {
             yearSum += dataset.data[year];
         });
 
-        sumRow.append('<td>' + numeral(yearSum).format('0,0.000') + '&nbsp;€</td>');
+        sumRow.append('<td>' + numeral(yearSum).format('0,0.00') + '&nbsp;€</td>');
         values.push(yearSum);
     }
 
-    sumRow.append('<td>' + numeral(overall).format('0,0.000') + '&nbsp;€</td>');
+    sumRow.append('<td>' + numeral(overall).format('0,0.00') + '&nbsp;€</td>');
 
     var color = getRandomColor();
     datasets.push({
         label: sumRow.children('td:first').text(),
-        data: values.map(round3Places),
+        data: values.map(round2Places),
         fillColor: 'rgba(' + color + ',0.2)',
         strokeColor: 'rgb(' + color + ')',
         pointColor: 'rgb(' + color + ')',
@@ -202,13 +202,13 @@ function draw(data, config) {
     // pie chart 300 vs. 400 cost types
     var pieChartData = [
         {
-            value: round3Places(costGroups['300']),
+            value: round2Places(costGroups['300']),
             color:"#F7464A",
             highlight: "#FF5A5E",
             label: "300er Kosten"
         },
         {
-            value: round3Places(costGroups['400']),
+            value: round2Places(costGroups['400']),
             color: "#46BFBD",
             highlight: "#5AD3D1",
             label: "400er Kosten"
