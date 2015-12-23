@@ -114,7 +114,7 @@
                           </div>
                         </div>
                         <div class="form-group">
-                          <label for="priceincrease-energy" class="col-sm-5 control-label">Energie</label>
+                          <label for="priceincrease-energy" class="col-sm-5 control-label">Strom & Wärme</label>
                           <div class="col-sm-7">
                             <div class="input-group">
                               <input id="priceincrease-energy" type="number" class="form-control" placeholder="0" min="0" max="6">
@@ -123,7 +123,7 @@
                           </div>
                         </div>
                         <div class="form-group">
-                          <label for="priceincrease-water" class="col-sm-5 control-label">Wasser & Abwasser</label>
+                          <label for="priceincrease-water" class="col-sm-5 control-label">Wasser</label>
                           <div class="col-sm-7">
                             <div class="input-group">
                               <input id="priceincrease-water" type="number" class="form-control" placeholder="0" min="0" max="4">
@@ -132,7 +132,7 @@
                           </div>
                         </div>
                         <div class="form-group">
-                          <label for="priceincrease-services" class="col-sm-5 control-label">Diensleistung (Reinigung)</label>
+                          <label for="priceincrease-services" class="col-sm-5 control-label">Reinigung</label>
                           <div class="col-sm-7">
                             <div class="input-group">
                               <input id="priceincrease-services" type="number" class="form-control" placeholder="0" min="0" max="4">
@@ -320,7 +320,7 @@
 
           <div class="panel panel-default">
             <div class="panel-heading">
-              <h3 class="panel-title">Energiearten</h3>
+              <h3 class="panel-title">Energiearten & weitere Kosten</h3>
             </div>
             <div class="panel-body">
 
@@ -328,11 +328,11 @@
                 <div class="col-md-4">
 
                   <div class="form-group">
-                    <label for="electricity" class="col-sm-4 control-label">Strom</label>
+                    <label for="electricity" class="col-sm-4 control-label">Stromverbrauch</label>
                     <div class="col-sm-8">
                       <div class="input-group">
                         <input id="electricity" type="text" class="form-control" placeholder="100">
-                        <span class="input-group-addon">€/m<sup>2</sup></span>
+                        <span class="input-group-addon">kWh/m<sup>2</sup></span>
                       </div>
                     </div>
                   </div>
@@ -341,24 +341,66 @@
                 <div class="col-md-4">
 
                   <div class="form-group">
-                    <label for="water" class="col-sm-4 control-label">Wasser</label>
-                    <div class="col-sm-8">
-                      <div class="input-group">
-                        <input id="water" type="text" class="form-control" placeholder="100">
-                        <span class="input-group-addon">€/m<sup>2</sup></span>
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-                <div class="col-md-4">
-
-                  <div class="form-group">
-                    <label for="heating" class="col-sm-4 control-label">Wärme</label>
+                    <label for="heating" class="col-sm-4 control-label">Wärmeverbrauch</label>
                     <div class="col-sm-8">
                       <div class="input-group">
                         <input id="heating" type="text" class="form-control" placeholder="100">
+                        <span class="input-group-addon">kWh/m<sup>2</sup></span>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="col-md-4">
+
+                  <div class="form-group">
+                    <label for="water" class="col-sm-4 control-label">Wasserverbrauch</label>
+                    <div class="col-sm-8">
+                      <div class="input-group">
+                        <input id="water" type="text" class="form-control" placeholder="100">
+                        <span class="input-group-addon">m<sup>3</sup>/m<sup>2</sup></span>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-4">
+
+                  <div class="form-group">
+                    <label for="energy-const" class="col-sm-4 control-label">Energiekosten</label>
+                    <div class="col-sm-8">
+                      <div class="input-group">
+                        <input id="energy-const" type="text" class="form-control" placeholder="0,10">
+                        <span class="input-group-addon">€/kWh</span>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="col-md-4">
+
+                  <div class="form-group">
+                    <label for="cleaning-const" class="col-sm-4 control-label">Reinigungskosten</label>
+                    <div class="col-sm-8">
+                      <div class="input-group">
+                        <input id="cleaning-const" type="text" class="form-control" placeholder="1">
                         <span class="input-group-addon">€/m<sup>2</sup></span>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="col-md-4">
+
+                  <div class="form-group">
+                    <label for="water-const" class="col-sm-4 control-label">Wasserkosten</label>
+                    <div class="col-sm-8">
+                      <div class="input-group">
+                        <input id="water-const" type="text" class="form-control" placeholder="2">
+                        <span class="input-group-addon">€/m<sup>3</sup></span>
                       </div>
                     </div>
                   </div>
