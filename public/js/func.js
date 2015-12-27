@@ -1,11 +1,11 @@
 var charts = [], // For cleanup after rerendering
     legend = {
         '300': {
-            title: 'Baukosten (300er)',
+            title: 'Baukosten (KG 300)',
             color: '132,249,242'
         },
         '400': {
-            title: 'Technische Anlagen (400er)',
+            title: 'Technische Anlagen (KG 400)',
             color: '36,193,46'
         },
         'operation': {
