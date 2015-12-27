@@ -119,15 +119,6 @@ function draw(data, config) {
         labels.push(year);
     }
 
-    // Add sum row to data
-    var values = [];
-    for (var year = 0; year <= config.years; year++) {
-        values.push(sumArray(Object.keys(data).map(function (key) {
-            return data[key][year];
-        })));
-    }
-    data['sum'] = values;
-
     for (var title in data) {
         var row = $('<tr>');
 
