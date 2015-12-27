@@ -57,7 +57,7 @@ $(function ($) {
 	$('button[type=submit]').click(function (event) {
 		var costTypes = [],
 			config = {
-				years: $('#review-period').val(),
+				years: parseInt($('#review-period').val(), 10),
 				discounting: $('#discounting').val() / 100,
 				inflation: $('#priceincrease-general').val() / 100,
 				vat: $('input[name=vat]:checked').val() / 100,
