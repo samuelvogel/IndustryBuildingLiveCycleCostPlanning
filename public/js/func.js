@@ -2,6 +2,7 @@
 function getRandomColor() {
     return (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256));
 }
+var charts = []; // For cleanup after rerendering
 
 // Round to 3 decimal places
 function round2Places(value) {
@@ -157,16 +158,18 @@ function draw(data, config) {
         });
     }
 
-    // Clean up old line chart to prevent jumping
-    if (typeof lineChart != 'undefined')
-        lineChart.destroy();
+    // Clean up old charts to prevent jumping
+    charts.forEach(function (chart) {
+        chart.destroy();
+    });
 
     // Line chart cost per year
-    var lineChartCtx = $("#line-chart canvas")[0].getContext("2d");
-    lineChart = new Chart(lineChartCtx).Line({
-        labels: labels,
-        datasets: datasets
-    });
+    var lineChartCtx = $("#line-chart canvas")[0].getContext("2d"),
+        lineChart = new Chart(lineChartCtx).Line({
+            labels: labels,
+            datasets: datasets
+        });
+    charts.push(lineChart);
     $('#line-chart .legend').html(lineChart.generateLegend());
 
     // pie chart 300 vs. 400 cost types
@@ -184,8 +187,9 @@ function draw(data, config) {
             label: "400er Kosten"
         }
     ];
-    var pieChartCtx = $("#pie-chart canvas")[0].getContext("2d");
-    var pieChart = new Chart(pieChartCtx).Doughnut(pieChartData);
+    var pieChartCtx = $("#pie-chart canvas")[0].getContext("2d"),
+        pieChart = new Chart(pieChartCtx).Doughnut(pieChartData);
+    charts.push(pieChart);
     $('#pie-chart .legend').html(pieChart.generateLegend());
 }
 
