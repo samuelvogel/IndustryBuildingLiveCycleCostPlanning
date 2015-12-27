@@ -125,7 +125,7 @@ function draw(data, config) {
     }
 
     data.forEach(function (costType){
-        var row = $('<tr>')
+        var row = $('<tr>'),
             sum = 0;
 
         // Insert new row
