@@ -193,18 +193,18 @@ function download(data) {
             Sheets: {}
         };
 
-    data.forEach(function (costType, r) {
+    Object.keys(data).forEach(function (key, r) {
         // Add title as string
-        sheet[XLSX.utils.encode_cell({c: 0, r: r})] = {t: 's', v: costType.title};
+        sheet[XLSX.utils.encode_cell({c: 0, r: r})] = {t: 's', v: legend[key].title};
 
-        costType.years.forEach(function (year, c) {
+        data[key].forEach(function (year, c) {
             // Add value as number
             sheet[XLSX.utils.encode_cell({c: c+1, r: r})] = {t: 'n', v: year};
         });
     });
 
     // Set range (area/size of worksheet)
-    sheet['!ref'] = XLSX.utils.encode_range({s: {c: 0, r: 0}, e: {c: data[0].years.length, r: data.length}});
+    sheet['!ref'] = XLSX.utils.encode_range({s: {c: 0, r: 0}, e: {c: data[Object.keys(data)[0]].length, r: Object.keys(data).length}});
 
     // Add worksheet to workbook
     workbook.Sheets[sheetName] = sheet;
