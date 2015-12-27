@@ -1,8 +1,30 @@
-// Return RGB values of random color
-function getRandomColor() {
-    return (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256));
-}
-var charts = []; // For cleanup after rerendering
+var charts = [], // For cleanup after rerendering
+    legend = {
+        '300': {
+            title: 'Baukosten (300er)',
+            color: '132,249,242'
+        },
+        '400': {
+            title: 'Technische Anlagen (400er)',
+            color: '36,193,46'
+        },
+        'operation': {
+            title: 'Betrieb',
+            color: '255,91,0'
+        },
+        'energy': {
+            title: 'Energie',
+            color: '255,199,0'
+        },
+        'water': {
+            title: 'Wasser',
+            color: '75,131,204'
+        },
+        'cleaning': {
+            title: 'Reinigung',
+            color: '179,75,204'
+        },
+    };
 
 // Round to 3 decimal places
 function round2Places(value) {
@@ -84,6 +106,31 @@ function calculate(costTypes, config) {
 
             result[resultKey][year] += cost;
         }
+
+        // Energy, water & cleaning (if applicable)
+        if ((config.electricity || config.heating) && config.energyCost) {
+            result['energy'] = [];
+        }
+        if (config.water && config.waterCost) {
+            result['water'] = [];
+        }
+        if (config.cleaningCost) {
+            result['cleaning'] = [];
+        }
+
+        for (var year = 0; year <= config.years; year++) {
+            if (result['energy']) {
+                result['energy'][year] = (config.electricity + config.heating) * config.energyCost * Math.pow(1 + config.inflationEnergy, year);
+            }
+
+            if (result['water']) {
+                result['water'][year] = config.water * config.waterCost * Math.pow(1 + config.inflationWater, year);
+            }
+
+            if (result['cleaning']) {
+                result['cleaning'][year] = config.cleaningCost * Math.pow(1 + config.inflationCleaning, year);
+            }
+        }
     });
 
     return result;
@@ -119,33 +166,32 @@ function draw(data, config) {
         labels.push(year);
     }
 
-    for (var title in data) {
+    for (var key in data) {
         var row = $('<tr>');
 
         // Insert new row
         body.append(row);
 
         // Start with title
-        row.append('<td>' + title + '</td>');
+        row.append('<td>' + legend[key].title + '</td>');
 
         // Yearly costs
-        data[title].forEach(function (year) {
+        data[key].forEach(function (year) {
             row.append('<td>' + numeral(year).format('0,0.00') + '&nbsp;€</td>');
         });
 
         // End with sum
-        row.append('<td>' + numeral(sumArray(data[title])).format('0,0.00') + '&nbsp;€</td>');
+        row.append('<td>' + numeral(sumArray(data[key])).format('0,0.00') + '&nbsp;€</td>');
 
-        var color = getRandomColor();
         datasets.push({
-            label: title,
-            data: data[title].map(round2Places),
-            fillColor: 'rgba(' + color + ',0.2)',
-            strokeColor: 'rgb(' + color + ')',
-            pointColor: 'rgb(' + color + ')',
+            label: legend[key].title,
+            data: data[key].map(round2Places),
+            fillColor: 'rgba(' + legend[key].color + ',0.2)',
+            strokeColor: 'rgb(' + legend[key].color + ')',
+            pointColor: 'rgb(' + legend[key].color + ')',
             pointStrokeColor: "#fff",
             pointHighlightFill: "#fff",
-            pointHighlightStroke: 'rgb(' + color + ')',
+            pointHighlightStroke: 'rgb(' + legend[key].color + ')',
         });
     }
 
@@ -163,21 +209,15 @@ function draw(data, config) {
     charts.push(lineChart);
     $('#line-chart .legend').html(lineChart.generateLegend());
 
-    // pie chart 300 vs. 400 cost types
-    var pieChartData = [
-        {
-            value: round2Places(sumArray(data['300'])),
-            color:"#F7464A",
-            highlight: "#FF5A5E",
-            label: "300er Kosten"
-        },
-        {
-            value: round2Places(sumArray(data['400'])),
-            color: "#46BFBD",
-            highlight: "#5AD3D1",
-            label: "400er Kosten"
-        }
-    ];
+    // Pie chart
+    var pieChartData = Object.keys(data).map(function (key) {
+        return {
+            label: legend[key].title,
+            value: round2Places(sumArray(data[key])),
+            color: 'rgba(' + legend[key].color + ',0.8)',
+            highlight: 'rgb(' + legend[key].color + ')'
+        };
+    });
     var pieChartCtx = $("#pie-chart canvas")[0].getContext("2d"),
         pieChart = new Chart(pieChartCtx).Doughnut(pieChartData);
     charts.push(pieChart);

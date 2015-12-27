@@ -60,10 +60,19 @@ $(function ($) {
 				years: parseInt($('#review-period').val(), 10),
 				discounting: $('#discounting').val() / 100,
 				inflation: $('#priceincrease-general').val() / 100,
+				inflationEnergy: $('#priceincrease-energy').val() / 100,
+				inflationWater: $('#priceincrease-water').val() / 100,
+				inflationCleaning: $('#priceincrease-cleaning').val() / 100,
 				vat: $('input[name=vat]:checked').val() / 100,
 				locationFactor: $('#location').val() / 100,
 				priceYear: parseInt($('#priceyear').val(), 10),
-				startYear: parseInt($('#startyear').val(), 10)
+				startYear: parseInt($('#startyear').val(), 10),
+				electricity: parseInt($('#electricity').val(), 10) || 0,
+				heating: parseInt($('#heating').val(), 10) || 0,
+				water: parseInt($('#water').val(), 10),
+				energyCost: numeral().unformat($('#energy-cost').val()),
+				cleaningCost: numeral().unformat($('#cleaning-cost').val()),
+				waterCost: numeral().unformat($('#water-cost').val())
 			};
 
 		event.preventDefault();
