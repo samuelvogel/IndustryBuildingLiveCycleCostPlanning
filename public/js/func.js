@@ -39,13 +39,17 @@ function removeCostType(element) {
 
 // Calculate result
 function calculate(costTypes, config) {
-    var result = [];
+    var result = {
+            '300': new Array(config.years + 1).fill(0),
+            '400': new Array(config.years + 1).fill(0),
+            'operation': new Array(config.years + 1).fill(0)
+        };
 
     // Calculate cost types
     costTypes.forEach(function (costType) {
         var manufacturingCosts = costType.manufacturingCost,
             cost,
-            years = [];
+            resultKey;
 
         if (config.startYear && config.priceYear) {
             // Discount for years before start year
@@ -58,9 +62,11 @@ function calculate(costTypes, config) {
             if (year == 0 || year == costType.data['lifetime']) {
                 // (Re)construction
                 cost = manufacturingCosts;
+                resultKey = costType.data.id.charAt(0) + '00'; // Group 300 and 400 cost types
             } else {
                 // Operating costs
                 cost = manufacturingCosts * costType.data['operation'];
+                resultKey = 'operation';
             }
 
             // Discounting
@@ -75,14 +81,8 @@ function calculate(costTypes, config) {
             // Location
             cost = cost * config.locationFactor;
 
-            years.push(cost);
+            result[resultKey][year] += cost;
         }
-
-        result.push({
-            title: costType.data['title'],
-            id: costType.data['id'],
-            years: years
-        });
     });
 
     return result;
@@ -95,19 +95,13 @@ function draw(data, config) {
         sumColumn = header.find('th:last'),
         labels = [0],
         datasets = [],
-        overall = 0,
-        costGroups = {
-            '300': 0,
-            '400': 0
-        },
-        sumRow = $('#calculation tbody tr:last');
+        body = $('#calculation tbody');
 
     $('#calculation').show();
 
     // Reset table
     $('#calculation thead tr th:gt(1):not(:last)').remove();
-    $('#calculation tbody tr:not(:last)').remove();
-    sumRow.children('td:not(:first)').remove();
+    body.empty();
 
     // Initialize header
     for (var year = 1; year <= config.years; year++) {
@@ -124,33 +118,36 @@ function draw(data, config) {
         labels.push(year);
     }
 
-    data.forEach(function (costType){
-        var row = $('<tr>'),
-            sum = 0;
+    // Add sum row to data
+    var values = [];
+    for (var year = 0; year <= config.years; year++) {
+        values.push(sumArray(Object.keys(data).map(function (key) {
+            return data[key][year];
+        })));
+    }
+    data['sum'] = values;
+
+    for (var title in data) {
+        var row = $('<tr>');
 
         // Insert new row
-        sumRow.before(row);
+        body.append(row);
 
         // Start with title
-        row.append('<td>' + costType.title + '</td>');
+        row.append('<td>' + title + '</td>');
 
         // Yearly costs
-        costType.years.forEach(function (year) {
+        data[title].forEach(function (year) {
             row.append('<td>' + numeral(year).format('0,0.00') + '&nbsp;€</td>');
-            sum += year;
         });
 
         // End with sum
-        row.append('<td>' + numeral(sum).format('0,0.00') + '&nbsp;€</td>');
-        overall += sum;
-
-        // Group 300 and 400 cost types
-        costGroups[costType.id.charAt(0) + '00'] += sum;
+        row.append('<td>' + numeral(sumArray(data[title])).format('0,0.00') + '&nbsp;€</td>');
 
         var color = getRandomColor();
         datasets.push({
-            label: costType['title'],
-            data: costType.years.map(round2Places),
+            label: title,
+            data: data[title].map(round2Places),
             fillColor: 'rgba(' + color + ',0.2)',
             strokeColor: 'rgb(' + color + ')',
             pointColor: 'rgb(' + color + ')',
@@ -158,34 +155,7 @@ function draw(data, config) {
             pointHighlightFill: "#fff",
             pointHighlightStroke: 'rgb(' + color + ')',
         });
-    });
-
-    // Add sum row
-    var values = [];
-    for (var year = 0; year <= config.years; year++) {
-        var yearSum = 0;
-
-        datasets.forEach(function(dataset) {
-            yearSum += dataset.data[year];
-        });
-
-        sumRow.append('<td>' + numeral(yearSum).format('0,0.00') + '&nbsp;€</td>');
-        values.push(yearSum);
     }
-
-    sumRow.append('<td>' + numeral(overall).format('0,0.00') + '&nbsp;€</td>');
-
-    var color = getRandomColor();
-    datasets.push({
-        label: sumRow.children('td:first').text(),
-        data: values.map(round2Places),
-        fillColor: 'rgba(' + color + ',0.2)',
-        strokeColor: 'rgb(' + color + ')',
-        pointColor: 'rgb(' + color + ')',
-        pointStrokeColor: "#fff",
-        pointHighlightFill: "#fff",
-        pointHighlightStroke: 'rgb(' + color + ')',
-    });
 
     // Clean up old line chart to prevent jumping
     if (typeof lineChart != 'undefined')
@@ -202,13 +172,13 @@ function draw(data, config) {
     // pie chart 300 vs. 400 cost types
     var pieChartData = [
         {
-            value: round2Places(costGroups['300']),
+            value: round2Places(sumArray(data['300'])),
             color:"#F7464A",
             highlight: "#FF5A5E",
             label: "300er Kosten"
         },
         {
-            value: round2Places(costGroups['400']),
+            value: round2Places(sumArray(data['400'])),
             color: "#46BFBD",
             highlight: "#5AD3D1",
             label: "400er Kosten"
@@ -247,6 +217,13 @@ function download(data) {
     // Write output and offer as download
     var output = XLSX.write(workbook, {type: 'binary'});
     saveAs(new Blob([s2ab(output)], {type: 'application/octet-stream'}), sheetName + '.xlsx');
+}
+
+// Sum up all values in an array
+function sumArray(array) {
+    return array.reduce(function (sum, value) {
+        return sum + value;
+    }, 0);
 }
 
 // Source: https://github.com/SheetJS/js-xlsx/blob/v0.8.0/README.md#writing-workbooks
