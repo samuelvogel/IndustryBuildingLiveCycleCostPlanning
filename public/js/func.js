@@ -83,9 +83,14 @@ function calculate(costTypes, config) {
         // Calculate years
         for (var year = 0; year <= config.years; year++) {
             if (year == 0 || year == costType.data['lifetime']) {
-                // (Re)construction
+                // Construction
                 cost = manufacturingCosts;
                 resultKey = costType.data.id.charAt(0) + '00'; // Group 300 and 400 cost types
+
+                if (year != 0) {
+                    // Reconstruction
+                    cost = cost * costType.data['rebuilding'];
+                }
             } else {
                 // Operating costs
                 cost = manufacturingCosts * costType.data['operation'];
