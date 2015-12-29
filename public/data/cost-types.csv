@@ -26,7 +26,7 @@ id,title,maintenance,service,operation,lifetime
 379,Baukonstruktive Einbauten,0,0,0,99
 391,Baustelleneinrichtung,0,0,0,99
 392,Gerüste,0,0,0,99
-411,Technische Anlagen allgemein,0.006,0.007,0.013,99
+400,Technische Anlagen allgemein,0.006,0.007,0.013,99
 411,Abwasseranlage,0.006,0.007,0.013,99
 412,Wasseranlagen,0.006,0.007,0.013,99
 419,Sonstiges ,0.006,0.007,0.013,99
