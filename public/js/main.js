@@ -64,7 +64,7 @@ $(function ($) {
 
 	// Export data
 	$('button[name=export]').click(function (event) {
-		download(result);
+		download(getConfig(), getCostTypes(costTypeData), result);
 	});
 
 });

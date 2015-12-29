@@ -292,34 +292,58 @@ function renderRow(legend, data, body) {
     row.append('<td>' + numeral(sumArray(data)).format('0,0.00') + ' €</td>');
 }
 
-// Export data as XLSX
-function download(data) {
-    var sheetName = "Kostenarten",
-        sheet = {},
+// Export input and data as XLSX
+function download(config, data, result) {
+    var sheetNameResult = "Ergebnis",
+        sheetNameConfig = "Konfiguration",
+        sheetNameData = "Kostenarten",
+        sheetResult = {},
+        sheetConfig = {},
+        sheetData = {},
         workbook = {
-            SheetNames: [sheetName], // Initialize worksheet
+            SheetNames: [sheetNameResult, sheetNameConfig, sheetNameData], // Initialize worksheet
             Sheets: {}
         };
 
-    Object.keys(data).forEach(function (key, r) {
+    // create result sheet
+    Object.keys(result).forEach(function (key, r) {
         // Add title as string
-        sheet[XLSX.utils.encode_cell({c: 0, r: r})] = {t: 's', v: legend[key].title};
+        sheetResult[XLSX.utils.encode_cell({c: 0, r: r})] = {t: 's', v: legend[key].title};
 
-        data[key].forEach(function (year, c) {
+        result[key].forEach(function (year, c) {
             // Add value as number
-            sheet[XLSX.utils.encode_cell({c: c+1, r: r})] = {t: 'n', v: year};
+            sheetResult[XLSX.utils.encode_cell({c: c+1, r: r})] = {t: 'n', v: year};
         });
     });
-
     // Set range (area/size of worksheet)
-    sheet['!ref'] = XLSX.utils.encode_range({s: {c: 0, r: 0}, e: {c: data[Object.keys(data)[0]].length, r: Object.keys(data).length}});
+    sheetResult['!ref'] = XLSX.utils.encode_range({s: {c: 0, r: 0}, e: {c: result[Object.keys(result)[0]].length, r: Object.keys(result).length}});
 
-    // Add worksheet to workbook
-    workbook.Sheets[sheetName] = sheet;
+    // Create config sheet
+    Object.keys(config).forEach(function (key, r) {
+        // Add key and value
+        sheetConfig[XLSX.utils.encode_cell({c: 0, r: r})] = {t: 's', v: key};
+        sheetConfig[XLSX.utils.encode_cell({c: 1, r: r})] = {t: 's', v: config[key]};
+    });
+    // Set range (area/size of worksheet)
+    sheetConfig['!ref'] = XLSX.utils.encode_range({s: {c: 0, r: 0}, e: {c: 1, r: Object.keys(config).length}});
+
+    // Create data sheet
+    data.forEach(function (costType, r) {
+        // Add key and value
+        sheetData[XLSX.utils.encode_cell({c: 0, r: r})] = {t: 's', v: costType.data.title};
+        sheetData[XLSX.utils.encode_cell({c: 1, r: r})] = {t: 'n', v: costType.manufacturingCost};
+    });
+    // Set range (area/size of worksheet)
+    sheetData['!ref'] = XLSX.utils.encode_range({s: {c: 0, r: 0}, e: {c: 1, r: data.length}});
+
+    // Add worksheets to workbook
+    workbook.Sheets[sheetNameResult] = sheetResult;
+    workbook.Sheets[sheetNameConfig] = sheetConfig;
+    workbook.Sheets[sheetNameData] = sheetData;
 
     // Write output and offer as download
     var output = XLSX.write(workbook, {type: 'binary'});
-    saveAs(new Blob([s2ab(output)], {type: 'application/octet-stream'}), sheetName + '.xlsx');
+    saveAs(new Blob([s2ab(output)], {type: 'application/octet-stream'}), 'Fläche.xlsx');
 }
 
 // Sum up all values in an array
