@@ -26,6 +26,10 @@ output {
 	overflow-x: scroll;
 }
 
+#results table {
+	white-space: nowrap;
+}
+
 #results table tr td:last-child {
 	font-weight: bold;
 }
