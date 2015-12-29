@@ -185,43 +185,19 @@ function draw(data, config) {
         labels.push(year);
     }
 
-    // Add sum row to data
+    // Render result table
+    for (var key in data) {
+        renderRow(legend[key], data[key], body);
+    }
+
+    // Render sum row
     var values = [];
     for (var year = 0; year <= config.years; year++) {
         values.push(sumArray(Object.keys(data).map(function (key) {
             return data[key][year];
         })));
     }
-    data['sum'] = values;
-
-    for (var key in data) {
-        var row = $('<tr>');
-
-        // Insert new row
-        body.append(row);
-
-        // Start with title
-        row.append('<td>' + legend[key].title + '</td>');
-
-        // Yearly costs
-        data[key].forEach(function (year) {
-            row.append('<td>' + numeral(year).format('0,0.00') + '&nbsp;€</td>');
-        });
-
-        // End with sum
-        row.append('<td>' + numeral(sumArray(data[key])).format('0,0.00') + '&nbsp;€</td>');
-
-        datasets.push({
-            label: legend[key].title,
-            data: data[key].map(round2Places),
-            fillColor: 'rgba(' + legend[key].color + ',0.2)',
-            strokeColor: 'rgb(' + legend[key].color + ')',
-            pointColor: 'rgb(' + legend[key].color + ')',
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: 'rgb(' + legend[key].color + ')',
-        });
-    }
+    renderRow(legend['sum'], values, body);
 
     // Clean up old charts to prevent jumping
     charts.forEach(function (chart) {
@@ -229,27 +205,58 @@ function draw(data, config) {
     });
 
     // Line chart cost per year
-    var lineChartCtx = $("#line-chart canvas")[0].getContext("2d"),
+    var lineChartData = Object.keys(data).map(function (key) {
+            return {
+                label: legend[key].title,
+                data: data[key].map(round2Places),
+                fillColor: 'rgba(' + legend[key].color + ',0.2)',
+                strokeColor: 'rgb(' + legend[key].color + ')',
+                pointColor: 'rgb(' + legend[key].color + ')',
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: 'rgb(' + legend[key].color + ')'
+            };
+        }),
+        lineChartCtx = $("#line-chart canvas")[0].getContext("2d"),
         lineChart = new Chart(lineChartCtx).Line({
             labels: labels,
-            datasets: datasets
+            datasets: lineChartData
         });
     charts.push(lineChart);
     $('#line-chart .legend').html(lineChart.generateLegend());
 
     // Pie chart
     var pieChartData = Object.keys(data).map(function (key) {
-        return {
-            label: legend[key].title,
-            value: round2Places(sumArray(data[key])),
-            color: 'rgba(' + legend[key].color + ',0.8)',
-            highlight: 'rgb(' + legend[key].color + ')'
-        };
-    });
-    var pieChartCtx = $("#pie-chart canvas")[0].getContext("2d"),
+            return {
+                label: legend[key].title,
+                value: round2Places(sumArray(data[key])),
+                color: 'rgba(' + legend[key].color + ',0.8)',
+                highlight: 'rgb(' + legend[key].color + ')'
+            };
+        }),
+        pieChartCtx = $("#pie-chart canvas")[0].getContext("2d"),
         pieChart = new Chart(pieChartCtx).Doughnut(pieChartData);
     charts.push(pieChart);
     $('#pie-chart .legend').html(pieChart.generateLegend());
+}
+
+// Render one row in result table
+function renderRow(legend, data, body) {
+    var row = $('<tr>');
+
+    // Insert new row
+    body.append(row);
+
+    // Start with title in first column
+    row.append('<td>' + legend.title + '</td>');
+
+    // Yearly costs
+    data.forEach(function (year) {
+        row.append('<td>' + numeral(year).format('0,0.00') + ' €</td>');
+    });
+
+    // End with sum in last column
+    row.append('<td>' + numeral(sumArray(data)).format('0,0.00') + ' €</td>');
 }
 
 // Export data as XLSX
