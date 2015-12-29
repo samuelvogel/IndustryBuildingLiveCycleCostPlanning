@@ -70,9 +70,10 @@ $(function ($) {
 				electricity: parseInt($('#electricity').val(), 10) || 0,
 				heating: parseInt($('#heating').val(), 10) || 0,
 				water: parseInt($('#water').val(), 10),
-				energyCost: numeral().unformat($('#energy-cost').val()),
-				cleaningCost: numeral().unformat($('#cleaning-cost').val()),
-				waterCost: numeral().unformat($('#water-cost').val())
+				electricityCost: numeral().unformat($('#electricity-cost').val()),
+				heatingCost: numeral().unformat($('#heating-cost').val()),
+				waterCost: numeral().unformat($('#water-cost').val()),
+				cleaningCost: numeral().unformat($('#cleaning-cost').val())
 			};
 
 		event.preventDefault();

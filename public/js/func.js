@@ -12,9 +12,13 @@ var charts = [], // For cleanup after rerendering
             title: 'Betrieb',
             color: '255,91,0'
         },
-        'energy': {
-            title: 'Energie',
+        'electricity': {
+            title: 'Strom',
             color: '255,199,0'
+        },
+        'heating': {
+            title: 'Wärme',
+            color: '240,62,38'
         },
         'water': {
             title: 'Wasser',
@@ -112,9 +116,12 @@ function calculate(costTypes, config) {
             result[resultKey][year] += cost;
         }
 
-        // Energy, water & cleaning (if applicable)
-        if ((config.electricity || config.heating) && config.energyCost) {
-            result['energy'] = [];
+        // Electricity, heating, water & cleaning (if applicable)
+        if (config.electricity && config.electricityCost) {
+            result['electricity'] = [];
+        }
+        if (config.heating && config.heatingCost) {
+            result['heating'] = [];
         }
         if (config.water && config.waterCost) {
             result['water'] = [];
@@ -124,8 +131,12 @@ function calculate(costTypes, config) {
         }
 
         for (var year = 0; year <= config.years; year++) {
-            if (result['energy']) {
-                result['energy'][year] = (config.electricity + config.heating) * config.energyCost * Math.pow(1 + config.inflationEnergy, year);
+            if (result['electricity']) {
+                result['electricity'][year] = config.electricity * config.electricityCost * Math.pow(1 + config.inflationEnergy, year);
+            }
+
+            if (result['heating']) {
+                result['heating'][year] = config.heating * config.heatingCost * Math.pow(1 + config.inflationEnergy, year);
             }
 
             if (result['water']) {
