@@ -28,6 +28,9 @@ var charts = [], // For cleanup after rerendering
             title: 'Reinigung',
             color: '179,75,204'
         },
+        'sum': {
+            title: 'Summe'
+        }
     };
 
 // Round to 3 decimal places
@@ -181,6 +184,15 @@ function draw(data, config) {
 
         labels.push(year);
     }
+
+    // Add sum row to data
+    var values = [];
+    for (var year = 0; year <= config.years; year++) {
+        values.push(sumArray(Object.keys(data).map(function (key) {
+            return data[key][year];
+        })));
+    }
+    data['sum'] = values;
 
     for (var key in data) {
         var row = $('<tr>');
