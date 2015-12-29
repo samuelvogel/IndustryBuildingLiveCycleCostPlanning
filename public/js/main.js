@@ -55,40 +55,11 @@ $(function ($) {
 
 	// Calculate results
 	$('button[type=submit]').click(function (event) {
-		var costTypes = [],
-			config = {
-				years: parseInt($('#review-period').val(), 10),
-				discounting: $('#discounting').val() / 100,
-				inflation: $('#priceincrease-general').val() / 100,
-				inflationEnergy: $('#priceincrease-energy').val() / 100,
-				inflationWater: $('#priceincrease-water').val() / 100,
-				inflationCleaning: $('#priceincrease-cleaning').val() / 100,
-				vat: $('input[name=vat]:checked').val() / 100,
-				locationFactor: $('#location').val() / 100,
-				priceYear: parseInt($('#priceyear').val(), 10),
-				startYear: parseInt($('#startyear').val(), 10),
-				electricity: parseInt($('#electricity').val(), 10) || 0,
-				heating: parseInt($('#heating').val(), 10) || 0,
-				water: parseInt($('#water').val(), 10),
-				electricityCost: numeral().unformat($('#electricity-cost').val()),
-				heatingCost: numeral().unformat($('#heating-cost').val()),
-				waterCost: numeral().unformat($('#water-cost').val()),
-				cleaningCost: numeral().unformat($('#cleaning-cost').val())
-			};
-
 		event.preventDefault();
 
-		// Get cost type input
-		$('#cost-types tbody tr:not(:last)').each(function (i, element) {
-			costTypes.push({
-				data: costTypeData[$(element).find('select').val()],
-				manufacturingCost: parseInt($(element).find('input').val())
-			});
-		});
+		result = calculate(getCostTypes(costTypeData), getConfig());
 
-		result = calculate(costTypes, config);
-
-		draw(result, config);
+		draw(result, getConfig());
 	});
 
 	// Export data
