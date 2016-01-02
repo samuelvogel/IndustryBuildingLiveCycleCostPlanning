@@ -8,6 +8,8 @@ $(function ($) {
 	});
 	// Initialize all indicators
 	$('input[type=range]').trigger('input');
+	// Initialize tooltips
+	$('[data-toggle="tooltip"]').tooltip();
 
 	// Used for calculation later
 	var costTypeData = [],
