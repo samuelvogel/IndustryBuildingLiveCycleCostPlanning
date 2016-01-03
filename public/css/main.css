@@ -22,6 +22,10 @@ output {
 	margin: 15px;
 }
 
+#calculation ul {
+	padding: 0;
+}
+
 #results {
 	overflow-x: scroll;
 }
