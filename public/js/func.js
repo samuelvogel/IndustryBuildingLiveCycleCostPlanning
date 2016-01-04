@@ -86,7 +86,17 @@ function getConfig() {
         electricityCost: numeral().unformat($('#electricity-cost').val()),
         heatingCost: numeral().unformat($('#heating-cost').val()),
         waterCost: numeral().unformat($('#water-cost').val()),
-        cleaningCost: numeral().unformat($('#cleaning-cost').val())
+        cleaningCost: numeral().unformat($('#cleaning-cost').val()),
+        factors: {
+            component: parseInt($('#component').val(), 10) / 100 + 1,
+            execution: parseInt($('#execution').val(), 10) / 100 + 1,
+            construction: parseInt($('#construction').val(), 10) / 100 + 1,
+            generality: parseInt($('#generality').val(), 10) / 100 + 1,
+            modularity: parseInt($('#modularity').val(), 10) / 100 + 1,
+            separability: parseInt($('#separability').val(), 10) / 100 + 1,
+            scalability: parseInt($('#scalability').val(), 10) / 100 + 1,
+            adaptability: parseInt($('#adaptability').val(), 10) / 100 + 1
+        }
     };
 }
 
@@ -106,13 +116,17 @@ function calculate(costTypes, config) {
             '300': new Array(config.years + 1).fill(0),
             '400': new Array(config.years + 1).fill(0),
             'operation': new Array(config.years + 1).fill(0)
-        };
+        },
+        factorProduct = Object.keys(config.factors).reduce(function (product, key) {
+            return product * config.factors[key];
+        }, 1);
 
     // Calculate cost types
     costTypes.forEach(function (costType) {
         var manufacturingCosts = costType.manufacturingCost,
             cost,
-            resultKey;
+            resultKey,
+            factor;
 
         if (config.startYear && config.priceYear) {
             // Discount for years before start year
@@ -126,6 +140,7 @@ function calculate(costTypes, config) {
                 // Construction
                 cost = manufacturingCosts;
                 resultKey = costType.data.id.charAt(0) + '00'; // Group 300 and 400 cost types
+                factor = factorProduct; // Factors increase construction cost
 
                 if (year != 0) {
                     // Reconstruction
@@ -135,6 +150,7 @@ function calculate(costTypes, config) {
                 // Operating costs
                 cost = manufacturingCosts * costType.data['operation'];
                 resultKey = 'operation';
+                factor = 1 / factorProduct; // Factors decrease operation cost
             }
 
             // Discounting
@@ -148,6 +164,9 @@ function calculate(costTypes, config) {
 
             // Location
             cost = cost * config.locationFactor;
+
+            // Factors
+            cost = cost * factor;
 
             result[resultKey][year] += cost;
         }
