@@ -1,3 +1,7 @@
+#factors {
+	white-space: nowrap;
+}
+
 /* Show description text beside indicator */
 output {
 	display: inline-block;

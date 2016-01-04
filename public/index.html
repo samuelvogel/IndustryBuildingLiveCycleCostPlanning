@@ -172,7 +172,7 @@
             </div>
           </div>
 
-          <div class="panel panel-default">
+          <div class="panel panel-default" id="factors">
             <div class="panel-heading">
               <h3 class="panel-title">Qualitätsbewertung</h3>
             </div>
@@ -188,30 +188,30 @@
                       <div class="panel-body">
 
                         <div class="form-group">
-                          <label for="component" class="col-sm-4 control-label">Komponenten</label>
+                          <label for="component" class="col-sm-3 control-label">Komponenten</label>
                           <div class="col-sm-7">
-                            <input id="component" type="range" class="form-control" value="5" min="1" max="9">
+                            <input id="component" type="range" class="form-control" value="0" min="-50" max="50" step="10">
                           </div>
-                          <div class="col-sm-1">
-                            <output for="component" name="component-indicator"></output>
+                          <div class="col-sm-2">
+                            <output for="component" name="component-indicator"></output> %
                           </div>
                         </div>
                         <div class="form-group">
-                          <label for="execution" class="col-sm-4 control-label">Ausführung</label>
+                          <label for="execution" class="col-sm-3 control-label">Ausführung</label>
                           <div class="col-sm-7">
-                            <input id="execution" type="range" class="form-control" value="5" min="1" max="9">
+                            <input id="execution" type="range" class="form-control" value="0" min="-50" max="50" step="10">
                           </div>
-                          <div class="col-sm-1">
-                            <output for="execution" name="execution-indicator"></output>
+                          <div class="col-sm-2">
+                            <output for="execution" name="execution-indicator"></output> %
                           </div>
                         </div>
                         <div class="form-group">
-                          <label for="construction" class="col-sm-4 control-label">Konstruktion</label>
+                          <label for="construction" class="col-sm-3 control-label">Konstruktion</label>
                           <div class="col-sm-7">
-                            <input id="construction" type="range" class="form-control" value="5" min="1" max="9">
+                            <input id="construction" type="range" class="form-control" value="0" min="-50" max="50" step="10">
                           </div>
-                          <div class="col-sm-1">
-                            <output for="construction" name="construction-indicator"></output>
+                          <div class="col-sm-2">
+                            <output for="construction" name="construction-indicator"></output> %
                           </div>
                         </div>
 
@@ -228,48 +228,48 @@
                       <div class="panel-body">
 
                         <div class="form-group">
-                          <label for="generality" class="col-sm-4 control-label">Universalität</label>
+                          <label for="generality" class="col-sm-3 control-label">Universalität</label>
                           <div class="col-sm-7">
-                            <input id="generality" type="range" class="form-control" value="5" min="1" max="9">
+                            <input id="generality" type="range" class="form-control" value="0" min="-50" max="50" step="10">
                           </div>
-                          <div class="col-sm-1">
-                            <output for="generality" name="generality-indicator"></output>
+                          <div class="col-sm-2">
+                            <output for="generality" name="generality-indicator"></output> %
                           </div>
                         </div>
                         <div class="form-group">
-                          <label for="modularity" class="col-sm-4 control-label">Modularität</label>
+                          <label for="modularity" class="col-sm-3 control-label">Modularität</label>
                           <div class="col-sm-7">
-                            <input id="modularity" type="range" class="form-control" value="5" min="1" max="9">
+                            <input id="modularity" type="range" class="form-control" value="0" min="-50" max="50" step="10">
                           </div>
-                          <div class="col-sm-1">
-                            <output for="modularity" name="modularity-indicator"></output>
+                          <div class="col-sm-2">
+                            <output for="modularity" name="modularity-indicator"></output> %
                           </div>
                         </div>
                         <div class="form-group">
-                          <label for="separability" class="col-sm-4 control-label">Trennbarkeit</label>
+                          <label for="separability" class="col-sm-3 control-label">Trennbarkeit</label>
                           <div class="col-sm-7">
-                            <input id="separability" type="range" class="form-control" value="5" min="1" max="9">
+                            <input id="separability" type="range" class="form-control" value="0" min="-50" max="50" step="10">
                           </div>
-                          <div class="col-sm-1">
-                            <output for="separability" name="separability-indicator"></output>
+                          <div class="col-sm-2">
+                            <output for="separability" name="separability-indicator"></output> %
                           </div>
                         </div>
                         <div class="form-group">
-                          <label for="scalability" class="col-sm-4 control-label">Skalierbarkeit</label>
+                          <label for="scalability" class="col-sm-3 control-label">Skalierbarkeit</label>
                           <div class="col-sm-7">
-                            <input id="scalability" type="range" class="form-control" value="5" min="1" max="9">
+                            <input id="scalability" type="range" class="form-control" value="0" min="-50" max="50" step="10">
                           </div>
-                          <div class="col-sm-1">
-                            <output for="scalability" name="scalability-indicator"></output>
+                          <div class="col-sm-2">
+                            <output for="scalability" name="scalability-indicator"></output> %
                           </div>
                         </div>
                         <div class="form-group">
-                          <label for="adaptability" class="col-sm-4 control-label">Revisionierbarkeit</label>
+                          <label for="adaptability" class="col-sm-3 control-label">Revisionierbarkeit</label>
                           <div class="col-sm-7">
-                            <input id="adaptability" type="range" class="form-control" value="5" min="1" max="9">
+                            <input id="adaptability" type="range" class="form-control" value="0" min="-50" max="50" step="10">
                           </div>
-                          <div class="col-sm-1">
-                            <output for="adaptability" name="adaptability-indicator"></output>
+                          <div class="col-sm-2">
+                            <output for="adaptability" name="adaptability-indicator"></output> %
                           </div>
                         </div>
 
